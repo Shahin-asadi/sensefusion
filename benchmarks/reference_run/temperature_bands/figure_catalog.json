@@ -1,0 +1,32 @@
+[
+  {
+    "stem": "figure",
+    "title": "Analysis overview",
+    "caption": "Figure 1. Group-weighted RMSE on the same scored observations for every eligible method. Excluded methods remain identified in tables. Weights and component choices are learned inside the training folds; lower error is better. Prediction coverage is reported separately."
+  },
+  {
+    "stem": "diagnostic_prediction_1",
+    "title": "Prediction diagnostics",
+    "caption": "Prediction diagnostics. Acetaminophen content (% w/w). Identical axes across methods; each point is a scored observation. Dashed line is identity. For nine or fewer rows, the two largest absolute errors are labelled; all identifiers remain in predictions.csv. No fit line, replicate uncertainty or additional validation is implied."
+  },
+  {
+    "stem": "diagnostic_group_residuals_1",
+    "title": "Group residual map",
+    "caption": "Mean signed errors per physical group. Positive means overprediction; the symmetric scale is centred at zero. The first 30 sorted groups are shown when necessary; group_diagnostics.csv retains every group. Group means can hide within-group variation."
+  },
+  {
+    "stem": "diagnostic_reference_range_1",
+    "title": "Reference-range diagnostics",
+    "caption": "Up to four shared quantile bins are used after prediction, for diagnosis only. Dots are bin summaries, not a fitted trend. Bin and physical-group counts are in reference_range_diagnostics.csv; sparse bins do not establish a stable error profile."
+  },
+  {
+    "stem": "diagnostic_fusion_weights",
+    "title": "Fusion weight stability",
+    "caption": "Each cell is a weight learned using only that outer fold's training data and nested out-of-fold predictions. Folds are categorical. Variation is descriptive; weights are not causal sensor importance. Exact components and fallbacks remain in fitted_choices.csv."
+  },
+  {
+    "stem": "diagnostic_feature_audit",
+    "title": "Feature availability and association",
+    "caption": "First 12 selected features in input order, without choosing them for apparent association. Correlations use available row pairs, with at least three pairs; blank cells are unavailable. Repeated observations can drive associations. Full availability statistics and preview feature names are exported; this view does not select model features."
+  }
+]

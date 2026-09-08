@@ -1,0 +1,18 @@
+{
+  "olive_fusion.csv": {
+    "sha256": "3d84456a1622900ee2df87aee59ddfdee345245c710d9985f8880e48ac9543a4",
+    "bytes": 185241
+  },
+  "olive_preparation.json": {
+    "sha256": "5b4e21151dadfe66701754080807ded93d7d57ebb8fa9b34f78e9394de80eb2c",
+    "bytes": 2657
+  },
+  "temperature_bands.csv": {
+    "sha256": "bde0af9e377c3510ffa43332437ac6c189367ecab04f37c6f51c234e0ff31c2f",
+    "bytes": 21822
+  },
+  "temperature_preparation.json": {
+    "sha256": "f8824010faef080bc8b579434ac50c3564100e4bd1fdf2aa27a077d9651f7356",
+    "bytes": 790
+  }
+}

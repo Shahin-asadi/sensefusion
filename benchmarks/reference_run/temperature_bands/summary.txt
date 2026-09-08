@@ -1,0 +1,3 @@
+The selected method, Late fusion: equal, gives group RMSE 7.973, MAE 5.578 and signed bias -2.278 in response units. On the stated common cohort, equal fusion did not reduce error relative to the lowest displayed single-block error (7.973 versus 7.345). Preprocessing and tuning use training data only. Missing blocks affect coverage; fusion need not improve performance. Sparse groups support exploratory conclusions only. Primary score and scatter: 9 paired rows (common comparison cohort); 9 pairs are available for this method in the full export. Group RMSE weights physical groups equally; MAE and bias weight rows equally.
+
+This held-out comparison is descriptive. Choosing the displayed winner does not independently validate a selection rule.

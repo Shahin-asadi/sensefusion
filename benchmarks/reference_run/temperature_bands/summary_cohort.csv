@@ -1,0 +1,10 @@
+﻿sample_id,group,fold,evaluation,model,included_in_primary_score_and_figure,has_finite_pair
+X1_sample1,sample1,3,out_of_fold,late_equal,True,True
+X1_sample2,sample2,2,out_of_fold,late_equal,True,True
+X1_sample3,sample3,1,out_of_fold,late_equal,True,True
+X1_sample4,sample4,0,out_of_fold,late_equal,True,True
+X1_sample5,sample5,4,out_of_fold,late_equal,True,True
+X1_sample6,sample6,3,out_of_fold,late_equal,True,True
+X1_sample7,sample7,2,out_of_fold,late_equal,True,True
+X1_sample8,sample8,1,out_of_fold,late_equal,True,True
+X1_sample9,sample9,0,out_of_fold,late_equal,True,True

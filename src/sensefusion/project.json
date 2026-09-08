@@ -1,0 +1,19 @@
+{
+  "slug": "sensefusion",
+  "owner": "Shahin-asadi",
+  "person": "Shahin Asadi",
+  "title": "SenseFusion",
+  "summary": "Compare single sensors, early fusion and out-of-fold weighted fusion with physical-group validation.",
+  "examples": [
+    "olive_fusion.csv",
+    "temperature_bands.csv"
+  ],
+  "preparation": [
+    "olive_preparation.json",
+    "temperature_preparation.json"
+  ],
+  "data_ids": [
+    "D02",
+    "D04"
+  ]
+}

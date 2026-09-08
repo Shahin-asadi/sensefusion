@@ -1,0 +1,1 @@
+Each cell is a weight learned using only that outer fold's training data and nested out-of-fold predictions. Folds are categorical. Variation is descriptive; weights are not causal sensor importance. Exact components and fallbacks remain in fitted_choices.csv.

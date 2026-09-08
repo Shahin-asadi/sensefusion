@@ -1,0 +1,54 @@
+[
+  {
+    "id": "D02",
+    "repository_id": "4p63x5r852",
+    "version": 1,
+    "title": "Dataset on the Impact of Acquisition Temperature Variations on Quantitation Models of a Miniaturized NIR Spectrometer: A Platform for Calibration Transfer",
+    "creators": [
+      "Ahmed Ramadan",
+      "Nicolas Abatzoglou",
+      "Ryan Gosselin"
+    ],
+    "doi": "10.17632/4p63x5r852.1",
+    "source_url": "https://data.mendeley.com/datasets/4p63x5r852/1",
+    "license": "CC-BY-4.0",
+    "license_url": "https://creativecommons.org/licenses/by/4.0/",
+    "checked_on": "2026-09-07",
+    "raw_data_included_in_delivery": false,
+    "downloads": [
+      {
+        "file": "Temperature_Variation_Dataset.csv",
+        "url": "https://data.mendeley.com/public-files/datasets/4p63x5r852/files/9b405bcb-54f6-45d9-a73f-760b88b0fd18/file_downloaded",
+        "bytes": 4003839,
+        "sha256": "4cd548a6b0b8f29bda414592b19f4ea87c1e73527d5e042fcc57fde95e4862ba"
+      }
+    ],
+    "processed_examples_included": true
+  },
+  {
+    "id": "D04",
+    "repository_id": "g6y69g8gwm",
+    "version": 1,
+    "title": "Dataset of Fluorescence EEM and UV Spectroscopy Data of Olive Oils during Ageing",
+    "creators": [
+      "Francesca Venturini",
+      "Silvan Fluri",
+      "Michael Baumgartner"
+    ],
+    "doi": "10.17632/g6y69g8gwm.1",
+    "source_url": "https://data.mendeley.com/datasets/g6y69g8gwm/1",
+    "license": "CC-BY-4.0",
+    "license_url": "https://creativecommons.org/licenses/by/4.0/",
+    "checked_on": "2026-09-07",
+    "raw_data_included_in_delivery": false,
+    "downloads": [
+      {
+        "file": "Raw_data.zip",
+        "url": "https://data.mendeley.com/public-files/datasets/g6y69g8gwm/files/c25f8bec-54d2-429d-9cfc-b5bebc4ea81a/file_downloaded",
+        "bytes": 52441934,
+        "sha256": "6acdbd0960ed66255e4f1e9b4b6aae224538c988c01dba1d4c8455017c1aff8b"
+      }
+    ],
+    "processed_examples_included": true
+  }
+]

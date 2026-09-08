@@ -1,0 +1,1 @@
+Figure 1. Group-weighted RMSE on the same scored observations for every eligible method. Excluded methods remain identified in tables. Weights and component choices are learned inside the training folds; lower error is better. Prediction coverage is reported separately.

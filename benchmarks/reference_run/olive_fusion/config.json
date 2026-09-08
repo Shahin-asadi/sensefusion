@@ -1,0 +1,69 @@
+{
+  "target": "target",
+  "id_col": "sample_id",
+  "group_col": "group",
+  "block_columns": {
+    "FL": [
+      "FL__ex340_em490",
+      "FL__ex340_em550",
+      "FL__ex340_em610",
+      "FL__ex340_em670",
+      "FL__ex340_em730",
+      "FL__ex340_em790",
+      "FL__ex380_em490",
+      "FL__ex380_em550",
+      "FL__ex380_em610",
+      "FL__ex380_em670",
+      "FL__ex380_em730",
+      "FL__ex380_em790",
+      "FL__ex420_em490",
+      "FL__ex420_em550",
+      "FL__ex420_em610",
+      "FL__ex420_em670",
+      "FL__ex420_em730",
+      "FL__ex420_em790",
+      "FL__ex460_em490",
+      "FL__ex460_em550",
+      "FL__ex460_em610",
+      "FL__ex460_em670",
+      "FL__ex460_em730",
+      "FL__ex460_em790",
+      "FL__ex500_em550",
+      "FL__ex500_em610",
+      "FL__ex500_em670",
+      "FL__ex500_em730",
+      "FL__ex500_em790",
+      "FL__ex540_em550",
+      "FL__ex540_em610",
+      "FL__ex540_em670",
+      "FL__ex540_em730",
+      "FL__ex540_em790",
+      "FL__ex580_em610",
+      "FL__ex580_em670",
+      "FL__ex580_em730",
+      "FL__ex580_em790",
+      "FL__ex620_em670",
+      "FL__ex620_em730",
+      "FL__ex620_em790"
+    ],
+    "UV": [
+      "UV__K232",
+      "UV__K264",
+      "UV__K268",
+      "UV__K272"
+    ]
+  },
+  "cv_group_col": null,
+  "column_metadata": {
+    "target": {
+      "label": "Accelerated ageing duration at 60 C",
+      "unit": "days"
+    }
+  },
+  "input_name": "olive_fusion.csv",
+  "provenance": {
+    "kind": "bundled_example",
+    "example": "olive_fusion.csv"
+  },
+  "import_options": {}
+}

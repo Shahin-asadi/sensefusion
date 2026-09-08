@@ -1,0 +1,78 @@
+{
+  "version": "0.5.1",
+  "source_sha256": "0ee1e853cacfd47ee54efc2030c3901a82792175bdeb2a10c8f469f866adaab9",
+  "tests": {
+    "windows312_final3": 73,
+    "windows314_final3": 73
+  },
+  "browser_cases": 8,
+  "native_windows": "PASS; fresh runtime install, offline start/check, CMD wrapper; shared failure and Ctrl+C cases recorded privately",
+  "platforms_not_run": [
+    "Linux",
+    "macOS",
+    "Python 3.13",
+    "remote GitHub Actions"
+  ],
+  "public_examples": [
+    {
+      "project": "sensefusion",
+      "example": "olive_fusion.csv",
+      "reconstruction": "PASS",
+      "baseline_primary_numerical_comparison": "PASS",
+      "fields_compared": [
+        "scores.n",
+        "scores.n_groups",
+        "scores.coverage",
+        "scores.rmse",
+        "scores.mae",
+        "scores.bias",
+        "scores.r2",
+        "scores.group_rmse",
+        "predictions.fold",
+        "predictions.reference",
+        "predictions.prediction",
+        "predictions.residual"
+      ],
+      "source_sha256": "0ee1e853cacfd47ee54efc2030c3901a82792175bdeb2a10c8f469f866adaab9",
+      "core_status": "complete",
+      "diagnostic_failures": [],
+      "diagnostic_errors": [],
+      "output": "final_benchmarks_release\\sensefusion\\olive_fusion",
+      "summary": [
+        "Input: olive_fusion.csv; 240 rows. Computation completed; evidence availability: complete.",
+        "Target: Accelerated ageing duration at 60 C (days). Errors use held-out physical groups; comparisons use the stated common cohort.",
+        "all methods: lowest displayed group RMSE = 8.90911 for Late fusion (equal weights), on 240 rows / 24 groups. This ranking is descriptive and may change on new data."
+      ]
+    },
+    {
+      "project": "sensefusion",
+      "example": "temperature_bands.csv",
+      "reconstruction": "PASS",
+      "baseline_primary_numerical_comparison": "PASS",
+      "fields_compared": [
+        "scores.n",
+        "scores.n_groups",
+        "scores.coverage",
+        "scores.rmse",
+        "scores.mae",
+        "scores.bias",
+        "scores.r2",
+        "scores.group_rmse",
+        "predictions.fold",
+        "predictions.reference",
+        "predictions.prediction",
+        "predictions.residual"
+      ],
+      "source_sha256": "0ee1e853cacfd47ee54efc2030c3901a82792175bdeb2a10c8f469f866adaab9",
+      "core_status": "complete",
+      "diagnostic_failures": [],
+      "diagnostic_errors": [],
+      "output": "final_benchmarks_release\\sensefusion\\temperature_bands",
+      "summary": [
+        "Input: temperature_bands.csv; 9 rows. Computation completed; evidence availability: complete.",
+        "Target: Acetaminophen content (% w/w). Errors use held-out physical groups; comparisons use the stated common cohort.",
+        "all methods: lowest displayed group RMSE = 7.3448 for Single block: HIGH, on 9 rows / 9 groups. This ranking is descriptive and may change on new data."
+      ]
+    }
+  ]
+}

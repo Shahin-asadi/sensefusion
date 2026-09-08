@@ -1,0 +1,10 @@
+{
+  "method": "late_equal",
+  "domain": null,
+  "response": null,
+  "budget": null,
+  "scope": "common_comparison_cohort",
+  "reason": "",
+  "n_available_pairs": 240,
+  "n_primary_pairs": 240
+}

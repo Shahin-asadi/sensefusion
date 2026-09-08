@@ -1,0 +1,9 @@
+cff-version: 1.2.0
+message: "Cite this software and the original datasets used in your analysis."
+title: "SenseFusion"
+type: software
+version: 0.5.2
+authors:
+  - name: "Shahin Asadi"
+license: MIT
+abstract: "Compare single sensors, early fusion and out-of-fold weighted fusion with physical-group validation."

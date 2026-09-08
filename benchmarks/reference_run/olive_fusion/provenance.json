@@ -1,0 +1,40 @@
+{
+  "kind": "bundled_example",
+  "example": "olive_fusion.csv",
+  "original_source": {
+    "id": "D04",
+    "repository_id": "g6y69g8gwm",
+    "version": 1,
+    "title": "Dataset of Fluorescence EEM and UV Spectroscopy Data of Olive Oils during Ageing",
+    "creators": [
+      "Francesca Venturini",
+      "Silvan Fluri",
+      "Michael Baumgartner"
+    ],
+    "doi": "10.17632/g6y69g8gwm.1",
+    "source_url": "https://data.mendeley.com/datasets/g6y69g8gwm/1",
+    "license": "CC-BY-4.0",
+    "license_url": "https://creativecommons.org/licenses/by/4.0/",
+    "checked_on": "2026-09-07",
+    "raw_data_included_in_delivery": false,
+    "downloads": [
+      {
+        "file": "Raw_data.zip",
+        "url": "https://data.mendeley.com/public-files/datasets/g6y69g8gwm/files/c25f8bec-54d2-429d-9cfc-b5bebc4ea81a/file_downloaded",
+        "bytes": 52441934,
+        "sha256": "6acdbd0960ed66255e4f1e9b4b6aae224538c988c01dba1d4c8455017c1aff8b"
+      }
+    ],
+    "processed_examples_included": true
+  },
+  "transformations": "Fixed fluorescence windows and deposited UV features paired by physical vial and ageing step; duplicate fluorescence acquisitions averaged; 240 matched records grouped into 24 oils. Reference is ageing duration at 60 C, not shelf life.",
+  "column_metadata": {
+    "target": {
+      "label": "Accelerated ageing duration at 60 C",
+      "unit": "days"
+    }
+  },
+  "prepared_csv_sha256": "3d84456a1622900ee2df87aee59ddfdee345245c710d9985f8880e48ac9543a4",
+  "code_license": "MIT",
+  "data_license": "CC-BY-4.0"
+}

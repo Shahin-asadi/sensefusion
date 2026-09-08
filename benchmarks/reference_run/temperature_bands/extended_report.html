@@ -1,0 +1,4192 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SenseFusion — grouped fusion comparison</title><style>
+body{font-family:"Times New Roman",serif;font-size:10pt;line-height:1.5;max-width:1100px;margin:30px auto;padding:0 24px;color:#111}
+h1,h2{font-size:12pt;font-weight:bold} table{border-collapse:collapse;margin:16px auto;width:100%;table-layout:fixed;font-size:10pt}
+th,td{padding:4px 7px;text-align:center;border:0;overflow-wrap:anywhere}thead{border-top:1px solid black;border-bottom:1px solid black}tbody{border-bottom:1px solid black}
+nav{padding:12px 0;border-bottom:1px solid #bbb;line-height:1.8}a{color:#17466b}.diagnostic{break-inside:avoid}img{max-width:100%;max-height:230mm;object-fit:contain}pre{white-space:pre-wrap;overflow-wrap:anywhere}section{margin-top:28px}@page{size:A4;margin:16mm 15mm}@media print{nav{display:none}body{margin:0}img{max-height:230mm}thead{display:table-header-group}tr{break-inside:avoid}}
+</style><h1>SenseFusion — grouped fusion comparison</h1><nav><a href="#summary">Summary</a> · <a href="#figure">Analysis overview</a> · <a href="#diagnostic_prediction_1">Prediction diagnostics</a> · <a href="#diagnostic_group_residuals_1">Group residual map</a> · <a href="#diagnostic_reference_range_1">Reference-range diagnostics</a> · <a href="#diagnostic_fusion_weights">Fusion weight stability</a> · <a href="#diagnostic_feature_audit">Feature availability and association</a><br><a href="#tables">Complete evidence tables</a></nav><h2 id="summary">Result summary</h2><p>Input: temperature_bands.csv; 9 rows. Computation completed; evidence availability: complete.</p><p>Target: Acetaminophen content (% w/w). Errors use held-out physical groups; comparisons use the stated common cohort.</p><p>all methods: lowest displayed group RMSE = 7.3448 for Single block: HIGH, on 9 rows / 9 groups. This ranking is descriptive and may change on new data.</p>
+<section class="diagnostic" id="figure"><h2>Figure 1. Analysis overview</h2><img src="figure.png" alt="Analysis overview"><p>Figure 1. Group-weighted RMSE on the same scored observations for every eligible method. Excluded methods remain identified in tables. Weights and component choices are learned inside the training folds; lower error is better. Prediction coverage is reported separately.</p></section><section class="diagnostic" id="diagnostic_prediction_1"><h2>Figure 2. Prediction diagnostics</h2><img src="diagnostic_prediction_1.png" alt="Prediction diagnostics"><p>Prediction diagnostics. Acetaminophen content (% w/w). Identical axes across methods; each point is a scored observation. Dashed line is identity. For nine or fewer rows, the two largest absolute errors are labelled; all identifiers remain in predictions.csv. No fit line, replicate uncertainty or additional validation is implied.</p></section><section class="diagnostic" id="diagnostic_group_residuals_1"><h2>Figure 3. Group residual map</h2><img src="diagnostic_group_residuals_1.png" alt="Group residual map"><p>Mean signed errors per physical group. Positive means overprediction; the symmetric scale is centred at zero. The first 30 sorted groups are shown when necessary; group_diagnostics.csv retains every group. Group means can hide within-group variation.</p></section><section class="diagnostic" id="diagnostic_reference_range_1"><h2>Figure 4. Reference-range diagnostics</h2><img src="diagnostic_reference_range_1.png" alt="Reference-range diagnostics"><p>Up to four shared quantile bins are used after prediction, for diagnosis only. Dots are bin summaries, not a fitted trend. Bin and physical-group counts are in reference_range_diagnostics.csv; sparse bins do not establish a stable error profile.</p></section><section class="diagnostic" id="diagnostic_fusion_weights"><h2>Figure 5. Fusion weight stability</h2><img src="diagnostic_fusion_weights.png" alt="Fusion weight stability"><p>Each cell is a weight learned using only that outer fold&#x27;s training data and nested out-of-fold predictions. Folds are categorical. Variation is descriptive; weights are not causal sensor importance. Exact components and fallbacks remain in fitted_choices.csv.</p></section><section class="diagnostic" id="diagnostic_feature_audit"><h2>Figure 6. Feature availability and association</h2><img src="diagnostic_feature_audit.png" alt="Feature availability and association"><p>First 12 selected features in input order, without choosing them for apparent association. Correlations use available row pairs, with at least three pairs; blank cells are unavailable. Repeated observations can drive associations. Full availability statistics and preview feature names are exported; this view does not select model features.</p></section><h2>Interpretation and limits</h2><ul><li>All transformations and component choices are fitted within training folds. Stack weights use additional out-of-fold training predictions.</li><li>Errors have response units; signed residual = prediction minus reference. Group RMSE gives each physical group equal weight.</li><li>Compare methods on common_scored_rows; all_available_rows also reports prediction coverage. A displayed best score is descriptive, not an independently validated winner.</li><li>Blank cells use training medians. Single-block models abstain on wholly absent blocks; late fusion renormalizes available weights. Early fusion imputes absent blocks and can be less reliable.</li></ul>
+<div id="tables"><section><h2>Table 1. scores</h2><p></p><p> Part 1/2.</p><table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>model</th>
+      <th>cohort</th>
+      <th>n</th>
+      <th>n_groups</th>
+      <th>coverage</th>
+      <th>rmse</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Single block: LOW</td>
+      <td>all_available_rows</td>
+      <td>9</td>
+      <td>9</td>
+      <td>1</td>
+      <td>9.75231</td>
+    </tr>
+    <tr>
+      <td>Single block: LOW</td>
+      <td>common_scored_rows</td>
+      <td>9</td>
+      <td>9</td>
+      <td>1</td>
+      <td>9.75231</td>
+    </tr>
+    <tr>
+      <td>Single block: HIGH</td>
+      <td>all_available_rows</td>
+      <td>9</td>
+      <td>9</td>
+      <td>1</td>
+      <td>7.3448</td>
+    </tr>
+    <tr>
+      <td>Single block: HIGH</td>
+      <td>common_scored_rows</td>
+      <td>9</td>
+      <td>9</td>
+      <td>1</td>
+      <td>7.3448</td>
+    </tr>
+    <tr>
+      <td>Early fusion (PLS)</td>
+      <td>all_available_rows</td>
+      <td>9</td>
+      <td>9</td>
+      <td>1</td>
+      <td>7.4974</td>
+    </tr>
+    <tr>
+      <td>Early fusion (PLS)</td>
+      <td>common_scored_rows</td>
+      <td>9</td>
+      <td>9</td>
+      <td>1</td>
+      <td>7.4974</td>
+    </tr>
+    <tr>
+      <td>Late fusion (equal weights)</td>
+      <td>all_available_rows</td>
+      <td>9</td>
+      <td>9</td>
+      <td>1</td>
+      <td>7.97346</td>
+    </tr>
+    <tr>
+      <td>Late fusion (equal weights)</td>
+      <td>common_scored_rows</td>
+      <td>9</td>
+      <td>9</td>
+      <td>1</td>
+      <td>7.97346</td>
+    </tr>
+    <tr>
+      <td>Late fusion (trained weights)</td>
+      <td>all_available_rows</td>
+      <td>9</td>
+      <td>9</td>
+      <td>1</td>
+      <td>8.19249</td>
+    </tr>
+    <tr>
+      <td>Late fusion (trained weights)</td>
+      <td>common_scored_rows</td>
+      <td>9</td>
+      <td>9</td>
+      <td>1</td>
+      <td>8.19249</td>
+    </tr>
+    <tr>
+      <td>Late fusion (inverse RMSE)</td>
+      <td>all_available_rows</td>
+      <td>9</td>
+      <td>9</td>
+      <td>1</td>
+      <td>8.04965</td>
+    </tr>
+    <tr>
+      <td>Late fusion (inverse RMSE)</td>
+      <td>common_scored_rows</td>
+      <td>9</td>
+      <td>9</td>
+      <td>1</td>
+      <td>8.04965</td>
+    </tr>
+    <tr>
+      <td>Training mean</td>
+      <td>all_available_rows</td>
+      <td>9</td>
+      <td>9</td>
+      <td>1</td>
+      <td>10.0195</td>
+    </tr>
+    <tr>
+      <td>Training mean</td>
+      <td>common_scored_rows</td>
+      <td>9</td>
+      <td>9</td>
+      <td>1</td>
+      <td>10.0195</td>
+    </tr>
+  </tbody>
+</table><p> Part 2/2.</p><table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>model</th>
+      <th>mae</th>
+      <th>bias</th>
+      <th>r2</th>
+      <th>group_rmse</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Single block: LOW</td>
+      <td>7.62081</td>
+      <td>-1.08432</td>
+      <td>-0.461697</td>
+      <td>9.75231</td>
+    </tr>
+    <tr>
+      <td>Single block: LOW</td>
+      <td>7.62081</td>
+      <td>-1.08432</td>
+      <td>-0.461697</td>
+      <td>9.75231</td>
+    </tr>
+    <tr>
+      <td>Single block: HIGH</td>
+      <td>3.84803</td>
+      <td>-3.47231</td>
+      <td>0.170908</td>
+      <td>7.3448</td>
+    </tr>
+    <tr>
+      <td>Single block: HIGH</td>
+      <td>3.84803</td>
+      <td>-3.47231</td>
+      <td>0.170908</td>
+      <td>7.3448</td>
+    </tr>
+    <tr>
+      <td>Early fusion (PLS)</td>
+      <td>3.85138</td>
+      <td>-3.3537</td>
+      <td>0.1361</td>
+      <td>7.4974</td>
+    </tr>
+    <tr>
+      <td>Early fusion (PLS)</td>
+      <td>3.85138</td>
+      <td>-3.3537</td>
+      <td>0.1361</td>
+      <td>7.4974</td>
+    </tr>
+    <tr>
+      <td>Late fusion (equal weights)</td>
+      <td>5.57796</td>
+      <td>-2.27831</td>
+      <td>0.0229057</td>
+      <td>7.97346</td>
+    </tr>
+    <tr>
+      <td>Late fusion (equal weights)</td>
+      <td>5.57796</td>
+      <td>-2.27831</td>
+      <td>0.0229057</td>
+      <td>7.97346</td>
+    </tr>
+    <tr>
+      <td>Late fusion (trained weights)</td>
+      <td>5.48385</td>
+      <td>-2.03706</td>
+      <td>-0.0315116</td>
+      <td>8.19249</td>
+    </tr>
+    <tr>
+      <td>Late fusion (trained weights)</td>
+      <td>5.48385</td>
+      <td>-2.03706</td>
+      <td>-0.0315116</td>
+      <td>8.19249</td>
+    </tr>
+    <tr>
+      <td>Late fusion (inverse RMSE)</td>
+      <td>5.55076</td>
+      <td>-2.17427</td>
+      <td>0.00414326</td>
+      <td>8.04965</td>
+    </tr>
+    <tr>
+      <td>Late fusion (inverse RMSE)</td>
+      <td>5.55076</td>
+      <td>-2.17427</td>
+      <td>0.00414326</td>
+      <td>8.04965</td>
+    </tr>
+    <tr>
+      <td>Training mean</td>
+      <td>8.50423</td>
+      <td>0.00529762</td>
+      <td>-0.542885</td>
+      <td>10.0195</td>
+    </tr>
+    <tr>
+      <td>Training mean</td>
+      <td>8.50423</td>
+      <td>0.00529762</td>
+      <td>-0.542885</td>
+      <td>10.0195</td>
+    </tr>
+  </tbody>
+</table></section><h2>Audit appendix</h2><p>Complete tables are supplied as CSV; previews below retain the stated row and column limits.</p><section><h2>Table 2. input audit</h2><p> Showing 12 of 128 rows; the complete table is in input_audit.csv.</p><p></p><table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>column</th>
+      <th>missing_cells</th>
+      <th>observed_cells</th>
+      <th>unique_observed</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>sample_id</td>
+      <td>0</td>
+      <td>9</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <td>group</td>
+      <td>0</td>
+      <td>9</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <td>target</td>
+      <td>0</td>
+      <td>9</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <td>LOW__908.1</td>
+      <td>0</td>
+      <td>9</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <td>LOW__914.294</td>
+      <td>0</td>
+      <td>9</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <td>LOW__920.489</td>
+      <td>0</td>
+      <td>9</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <td>LOW__926.683</td>
+      <td>0</td>
+      <td>9</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <td>LOW__932.877</td>
+      <td>0</td>
+      <td>9</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <td>LOW__939.072</td>
+      <td>0</td>
+      <td>9</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <td>LOW__945.266</td>
+      <td>0</td>
+      <td>9</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <td>LOW__951.46</td>
+      <td>0</td>
+      <td>9</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <td>LOW__957.655</td>
+      <td>0</td>
+      <td>9</td>
+      <td>9</td>
+    </tr>
+  </tbody>
+</table></section><section><h2>Table 3. predictions</h2><p> Showing 24 of 63 rows; the complete table is in predictions.csv.</p><p> Part 1/2.</p><table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>sample_id</th>
+      <th>group</th>
+      <th>fold</th>
+      <th>model</th>
+      <th>reference</th>
+      <th>prediction</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>X1_sample1</td>
+      <td>sample1</td>
+      <td>3</td>
+      <td>Single block: LOW</td>
+      <td>40.15</td>
+      <td>38.0935</td>
+    </tr>
+    <tr>
+      <td>X1_sample2</td>
+      <td>sample2</td>
+      <td>2</td>
+      <td>Single block: LOW</td>
+      <td>39.93</td>
+      <td>54.9104</td>
+    </tr>
+    <tr>
+      <td>X1_sample3</td>
+      <td>sample3</td>
+      <td>1</td>
+      <td>Single block: LOW</td>
+      <td>59.66</td>
+      <td>42.3411</td>
+    </tr>
+    <tr>
+      <td>X1_sample4</td>
+      <td>sample4</td>
+      <td>0</td>
+      <td>Single block: LOW</td>
+      <td>60.03</td>
+      <td>54.935</td>
+    </tr>
+    <tr>
+      <td>X1_sample5</td>
+      <td>sample5</td>
+      <td>4</td>
+      <td>Single block: LOW</td>
+      <td>50.15</td>
+      <td>50.0798</td>
+    </tr>
+    <tr>
+      <td>X1_sample6</td>
+      <td>sample6</td>
+      <td>3</td>
+      <td>Single block: LOW</td>
+      <td>49.89</td>
+      <td>46.6534</td>
+    </tr>
+    <tr>
+      <td>X1_sample7</td>
+      <td>sample7</td>
+      <td>2</td>
+      <td>Single block: LOW</td>
+      <td>39.66</td>
+      <td>52.2111</td>
+    </tr>
+    <tr>
+      <td>X1_sample8</td>
+      <td>sample8</td>
+      <td>1</td>
+      <td>Single block: LOW</td>
+      <td>59.3</td>
+      <td>47.904</td>
+    </tr>
+    <tr>
+      <td>X1_sample9</td>
+      <td>sample9</td>
+      <td>0</td>
+      <td>Single block: LOW</td>
+      <td>49.91</td>
+      <td>51.7927</td>
+    </tr>
+    <tr>
+      <td>X1_sample1</td>
+      <td>sample1</td>
+      <td>3</td>
+      <td>Single block: HIGH</td>
+      <td>40.15</td>
+      <td>40.0194</td>
+    </tr>
+    <tr>
+      <td>X1_sample2</td>
+      <td>sample2</td>
+      <td>2</td>
+      <td>Single block: HIGH</td>
+      <td>39.93</td>
+      <td>39.8628</td>
+    </tr>
+    <tr>
+      <td>X1_sample3</td>
+      <td>sample3</td>
+      <td>1</td>
+      <td>Single block: HIGH</td>
+      <td>59.66</td>
+      <td>40.9269</td>
+    </tr>
+    <tr>
+      <td>X1_sample4</td>
+      <td>sample4</td>
+      <td>0</td>
+      <td>Single block: HIGH</td>
+      <td>60.03</td>
+      <td>59.3865</td>
+    </tr>
+    <tr>
+      <td>X1_sample5</td>
+      <td>sample5</td>
+      <td>4</td>
+      <td>Single block: HIGH</td>
+      <td>50.15</td>
+      <td>50.4993</td>
+    </tr>
+    <tr>
+      <td>X1_sample6</td>
+      <td>sample6</td>
+      <td>3</td>
+      <td>Single block: HIGH</td>
+      <td>49.89</td>
+      <td>49.2016</td>
+    </tr>
+    <tr>
+      <td>X1_sample7</td>
+      <td>sample7</td>
+      <td>2</td>
+      <td>Single block: HIGH</td>
+      <td>39.66</td>
+      <td>41.0014</td>
+    </tr>
+    <tr>
+      <td>X1_sample8</td>
+      <td>sample8</td>
+      <td>1</td>
+      <td>Single block: HIGH</td>
+      <td>59.3</td>
+      <td>47.8921</td>
+    </tr>
+    <tr>
+      <td>X1_sample9</td>
+      <td>sample9</td>
+      <td>0</td>
+      <td>Single block: HIGH</td>
+      <td>49.91</td>
+      <td>48.6392</td>
+    </tr>
+    <tr>
+      <td>X1_sample1</td>
+      <td>sample1</td>
+      <td>3</td>
+      <td>Early fusion (PLS)</td>
+      <td>40.15</td>
+      <td>39.6911</td>
+    </tr>
+    <tr>
+      <td>X1_sample2</td>
+      <td>sample2</td>
+      <td>2</td>
+      <td>Early fusion (PLS)</td>
+      <td>39.93</td>
+      <td>39.9154</td>
+    </tr>
+    <tr>
+      <td>X1_sample3</td>
+      <td>sample3</td>
+      <td>1</td>
+      <td>Early fusion (PLS)</td>
+      <td>59.66</td>
+      <td>40.2368</td>
+    </tr>
+    <tr>
+      <td>X1_sample4</td>
+      <td>sample4</td>
+      <td>0</td>
+      <td>Early fusion (PLS)</td>
+      <td>60.03</td>
+      <td>60.3648</td>
+    </tr>
+    <tr>
+      <td>X1_sample5</td>
+      <td>sample5</td>
+      <td>4</td>
+      <td>Early fusion (PLS)</td>
+      <td>50.15</td>
+      <td>49.5532</td>
+    </tr>
+    <tr>
+      <td>X1_sample6</td>
+      <td>sample6</td>
+      <td>3</td>
+      <td>Early fusion (PLS)</td>
+      <td>49.89</td>
+      <td>49.1391</td>
+    </tr>
+  </tbody>
+</table><p> Part 2/2.</p><table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>sample_id</th>
+      <th>residual</th>
+      <th>evaluation</th>
+      <th>in_common_cohort</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>X1_sample1</td>
+      <td>-2.05646</td>
+      <td>out_of_fold</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <td>X1_sample2</td>
+      <td>14.9804</td>
+      <td>out_of_fold</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <td>X1_sample3</td>
+      <td>-17.3189</td>
+      <td>out_of_fold</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <td>X1_sample4</td>
+      <td>-5.09502</td>
+      <td>out_of_fold</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <td>X1_sample5</td>
+      <td>-0.070158</td>
+      <td>out_of_fold</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <td>X1_sample6</td>
+      <td>-3.23656</td>
+      <td>out_of_fold</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <td>X1_sample7</td>
+      <td>12.5511</td>
+      <td>out_of_fold</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <td>X1_sample8</td>
+      <td>-11.396</td>
+      <td>out_of_fold</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <td>X1_sample9</td>
+      <td>1.88267</td>
+      <td>out_of_fold</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <td>X1_sample1</td>
+      <td>-0.130553</td>
+      <td>out_of_fold</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <td>X1_sample2</td>
+      <td>-0.0671891</td>
+      <td>out_of_fold</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <td>X1_sample3</td>
+      <td>-18.7331</td>
+      <td>out_of_fold</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <td>X1_sample4</td>
+      <td>-0.643544</td>
+      <td>out_of_fold</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <td>X1_sample5</td>
+      <td>0.349291</td>
+      <td>out_of_fold</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <td>X1_sample6</td>
+      <td>-0.688449</td>
+      <td>out_of_fold</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <td>X1_sample7</td>
+      <td>1.34145</td>
+      <td>out_of_fold</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <td>X1_sample8</td>
+      <td>-11.4079</td>
+      <td>out_of_fold</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <td>X1_sample9</td>
+      <td>-1.27077</td>
+      <td>out_of_fold</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <td>X1_sample1</td>
+      <td>-0.458913</td>
+      <td>out_of_fold</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <td>X1_sample2</td>
+      <td>-0.0146203</td>
+      <td>out_of_fold</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <td>X1_sample3</td>
+      <td>-19.4232</td>
+      <td>out_of_fold</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <td>X1_sample4</td>
+      <td>0.334765</td>
+      <td>out_of_fold</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <td>X1_sample5</td>
+      <td>-0.596835</td>
+      <td>out_of_fold</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <td>X1_sample6</td>
+      <td>-0.750946</td>
+      <td>out_of_fold</td>
+      <td>True</td>
+    </tr>
+  </tbody>
+</table></section><section><h2>Table 4. fitted choices</h2><p></p><p> Part 1/2.</p><table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>fold</th>
+      <th>block</th>
+      <th>components</th>
+      <th>estimator</th>
+      <th>weight</th>
+      <th>weight_method</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0</td>
+      <td>LOW</td>
+      <td>3</td>
+      <td>PLS</td>
+      <td>0</td>
+      <td>nonnegative sum-to-one weights learned from nested grouped out-of-fold training predictions</td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>HIGH</td>
+      <td>3</td>
+      <td>PLS</td>
+      <td>1</td>
+      <td>nonnegative sum-to-one weights learned from nested grouped out-of-fold training predictions</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>LOW</td>
+      <td>1</td>
+      <td>PLS</td>
+      <td>4.4062e-16</td>
+      <td>nonnegative sum-to-one weights learned from nested grouped out-of-fold training predictions</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>HIGH</td>
+      <td>1</td>
+      <td>PLS</td>
+      <td>1</td>
+      <td>nonnegative sum-to-one weights learned from nested grouped out-of-fold training predictions</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>LOW</td>
+      <td>2</td>
+      <td>PLS</td>
+      <td>0.538737</td>
+      <td>nonnegative sum-to-one weights learned from nested grouped out-of-fold training predictions</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>HIGH</td>
+      <td>3</td>
+      <td>PLS</td>
+      <td>0.461263</td>
+      <td>nonnegative sum-to-one weights learned from nested grouped out-of-fold training predictions</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>LOW</td>
+      <td>3</td>
+      <td>PLS</td>
+      <td>0.216754</td>
+      <td>nonnegative sum-to-one weights learned from nested grouped out-of-fold training predictions</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>HIGH</td>
+      <td>3</td>
+      <td>PLS</td>
+      <td>0.783246</td>
+      <td>nonnegative sum-to-one weights learned from nested grouped out-of-fold training predictions</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>LOW</td>
+      <td>3</td>
+      <td>PLS</td>
+      <td>0.616905</td>
+      <td>nonnegative sum-to-one weights learned from nested grouped out-of-fold training predictions</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>HIGH</td>
+      <td>3</td>
+      <td>PLS</td>
+      <td>0.383095</td>
+      <td>nonnegative sum-to-one weights learned from nested grouped out-of-fold training predictions</td>
+    </tr>
+  </tbody>
+</table><p> Part 2/2.</p><table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>fold</th>
+      <th>inverse_rmse_weight</th>
+      <th>inverse_rmse_weight_method</th>
+      <th>early_components</th>
+      <th>early_estimator</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0</td>
+      <td>0.451673</td>
+      <td>normalized inverse grouped RMSE from shared nested out-of-fold training predictions; exact-zero errors share all weight</td>
+      <td>3</td>
+      <td>PLS</td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>0.548327</td>
+      <td>normalized inverse grouped RMSE from shared nested out-of-fold training predictions; exact-zero errors share all weight</td>
+      <td>3</td>
+      <td>PLS</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>0.375241</td>
+      <td>normalized inverse grouped RMSE from shared nested out-of-fold training predictions; exact-zero errors share all weight</td>
+      <td>1</td>
+      <td>PLS</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>0.624759</td>
+      <td>normalized inverse grouped RMSE from shared nested out-of-fold training predictions; exact-zero errors share all weight</td>
+      <td>1</td>
+      <td>PLS</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>0.519186</td>
+      <td>normalized inverse grouped RMSE from shared nested out-of-fold training predictions; exact-zero errors share all weight</td>
+      <td>3</td>
+      <td>PLS</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>0.480814</td>
+      <td>normalized inverse grouped RMSE from shared nested out-of-fold training predictions; exact-zero errors share all weight</td>
+      <td>3</td>
+      <td>PLS</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>0.376315</td>
+      <td>normalized inverse grouped RMSE from shared nested out-of-fold training predictions; exact-zero errors share all weight</td>
+      <td>3</td>
+      <td>PLS</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>0.623685</td>
+      <td>normalized inverse grouped RMSE from shared nested out-of-fold training predictions; exact-zero errors share all weight</td>
+      <td>3</td>
+      <td>PLS</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>0.513349</td>
+      <td>normalized inverse grouped RMSE from shared nested out-of-fold training predictions; exact-zero errors share all weight</td>
+      <td>3</td>
+      <td>PLS</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>0.486651</td>
+      <td>normalized inverse grouped RMSE from shared nested out-of-fold training predictions; exact-zero errors share all weight</td>
+      <td>3</td>
+      <td>PLS</td>
+    </tr>
+  </tbody>
+</table></section><section><h2>Table 5. splits</h2><p> Showing 12 of 45 rows; the complete table is in splits.csv.</p><p></p><table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>fold</th>
+      <th>role</th>
+      <th>sample_id</th>
+      <th>group</th>
+      <th>evaluation_group</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0</td>
+      <td>train</td>
+      <td>X1_sample1</td>
+      <td>sample1</td>
+      <td>sample1</td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>train</td>
+      <td>X1_sample2</td>
+      <td>sample2</td>
+      <td>sample2</td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>train</td>
+      <td>X1_sample3</td>
+      <td>sample3</td>
+      <td>sample3</td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>train</td>
+      <td>X1_sample5</td>
+      <td>sample5</td>
+      <td>sample5</td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>train</td>
+      <td>X1_sample6</td>
+      <td>sample6</td>
+      <td>sample6</td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>train</td>
+      <td>X1_sample7</td>
+      <td>sample7</td>
+      <td>sample7</td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>train</td>
+      <td>X1_sample8</td>
+      <td>sample8</td>
+      <td>sample8</td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>test</td>
+      <td>X1_sample4</td>
+      <td>sample4</td>
+      <td>sample4</td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>test</td>
+      <td>X1_sample9</td>
+      <td>sample9</td>
+      <td>sample9</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>train</td>
+      <td>X1_sample1</td>
+      <td>sample1</td>
+      <td>sample1</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>train</td>
+      <td>X1_sample2</td>
+      <td>sample2</td>
+      <td>sample2</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>train</td>
+      <td>X1_sample4</td>
+      <td>sample4</td>
+      <td>sample4</td>
+    </tr>
+  </tbody>
+</table></section><section><h2>Table 6. feature quality</h2><p> Showing 24 of 125 rows; the complete table is in feature_quality.csv.</p><p> Part 1/2.</p><table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>feature</th>
+      <th>observed_rows</th>
+      <th>missing_fraction</th>
+      <th>minimum</th>
+      <th>median</th>
+      <th>maximum</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>LOW__908.1</td>
+      <td>9</td>
+      <td>0</td>
+      <td>0.229562</td>
+      <td>0.254934</td>
+      <td>0.33972</td>
+    </tr>
+    <tr>
+      <td>LOW__914.294</td>
+      <td>9</td>
+      <td>0</td>
+      <td>0.229764</td>
+      <td>0.256754</td>
+      <td>0.341508</td>
+    </tr>
+    <tr>
+      <td>LOW__920.489</td>
+      <td>9</td>
+      <td>0</td>
+      <td>0.228899</td>
+      <td>0.257623</td>
+      <td>0.341871</td>
+    </tr>
+    <tr>
+      <td>LOW__926.683</td>
+      <td>9</td>
+      <td>0</td>
+      <td>0.229004</td>
+      <td>0.259005</td>
+      <td>0.342805</td>
+    </tr>
+    <tr>
+      <td>LOW__932.877</td>
+      <td>9</td>
+      <td>0</td>
+      <td>0.217792</td>
+      <td>0.249249</td>
+      <td>0.331655</td>
+    </tr>
+    <tr>
+      <td>LOW__939.072</td>
+      <td>9</td>
+      <td>0</td>
+      <td>0.207274</td>
+      <td>0.239122</td>
+      <td>0.322339</td>
+    </tr>
+    <tr>
+      <td>LOW__945.266</td>
+      <td>9</td>
+      <td>0</td>
+      <td>0.20201</td>
+      <td>0.233878</td>
+      <td>0.318063</td>
+    </tr>
+    <tr>
+      <td>LOW__951.46</td>
+      <td>9</td>
+      <td>0</td>
+      <td>0.195935</td>
+      <td>0.228165</td>
+      <td>0.311096</td>
+    </tr>
+    <tr>
+      <td>LOW__957.655</td>
+      <td>9</td>
+      <td>0</td>
+      <td>0.19549</td>
+      <td>0.228408</td>
+      <td>0.311265</td>
+    </tr>
+    <tr>
+      <td>LOW__963.849</td>
+      <td>9</td>
+      <td>0</td>
+      <td>0.19242</td>
+      <td>0.226012</td>
+      <td>0.307684</td>
+    </tr>
+    <tr>
+      <td>LOW__970.044</td>
+      <td>9</td>
+      <td>0</td>
+      <td>0.194415</td>
+      <td>0.228935</td>
+      <td>0.310307</td>
+    </tr>
+    <tr>
+      <td>LOW__976.238</td>
+      <td>9</td>
+      <td>0</td>
+      <td>0.194412</td>
+      <td>0.229593</td>
+      <td>0.309929</td>
+    </tr>
+    <tr>
+      <td>LOW__982.432</td>
+      <td>9</td>
+      <td>0</td>
+      <td>0.198197</td>
+      <td>0.233846</td>
+      <td>0.314634</td>
+    </tr>
+    <tr>
+      <td>LOW__988.627</td>
+      <td>9</td>
+      <td>0</td>
+      <td>0.198214</td>
+      <td>0.233967</td>
+      <td>0.314419</td>
+    </tr>
+    <tr>
+      <td>LOW__994.821</td>
+      <td>9</td>
+      <td>0</td>
+      <td>0.196367</td>
+      <td>0.231738</td>
+      <td>0.312103</td>
+    </tr>
+    <tr>
+      <td>LOW__1001.015</td>
+      <td>9</td>
+      <td>0</td>
+      <td>0.197493</td>
+      <td>0.232559</td>
+      <td>0.313749</td>
+    </tr>
+    <tr>
+      <td>LOW__1007.21</td>
+      <td>9</td>
+      <td>0</td>
+      <td>0.198073</td>
+      <td>0.232632</td>
+      <td>0.314308</td>
+    </tr>
+    <tr>
+      <td>LOW__1013.404</td>
+      <td>9</td>
+      <td>0</td>
+      <td>0.199805</td>
+      <td>0.234128</td>
+      <td>0.31701</td>
+    </tr>
+    <tr>
+      <td>LOW__1019.598</td>
+      <td>9</td>
+      <td>0</td>
+      <td>0.199966</td>
+      <td>0.234059</td>
+      <td>0.317504</td>
+    </tr>
+    <tr>
+      <td>LOW__1025.793</td>
+      <td>9</td>
+      <td>0</td>
+      <td>0.195457</td>
+      <td>0.229446</td>
+      <td>0.311873</td>
+    </tr>
+    <tr>
+      <td>LOW__1031.987</td>
+      <td>9</td>
+      <td>0</td>
+      <td>0.199345</td>
+      <td>0.233517</td>
+      <td>0.317181</td>
+    </tr>
+    <tr>
+      <td>LOW__1038.181</td>
+      <td>9</td>
+      <td>0</td>
+      <td>0.194773</td>
+      <td>0.229035</td>
+      <td>0.311407</td>
+    </tr>
+    <tr>
+      <td>LOW__1044.376</td>
+      <td>9</td>
+      <td>0</td>
+      <td>0.195655</td>
+      <td>0.230097</td>
+      <td>0.312773</td>
+    </tr>
+    <tr>
+      <td>LOW__1050.57</td>
+      <td>9</td>
+      <td>0</td>
+      <td>0.195726</td>
+      <td>0.230042</td>
+      <td>0.313009</td>
+    </tr>
+  </tbody>
+</table><p> Part 2/2.</p><table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>feature</th>
+      <th>distinct_values</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>LOW__908.1</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <td>LOW__914.294</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <td>LOW__920.489</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <td>LOW__926.683</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <td>LOW__932.877</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <td>LOW__939.072</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <td>LOW__945.266</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <td>LOW__951.46</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <td>LOW__957.655</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <td>LOW__963.849</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <td>LOW__970.044</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <td>LOW__976.238</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <td>LOW__982.432</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <td>LOW__988.627</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <td>LOW__994.821</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <td>LOW__1001.015</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <td>LOW__1007.21</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <td>LOW__1013.404</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <td>LOW__1019.598</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <td>LOW__1025.793</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <td>LOW__1031.987</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <td>LOW__1038.181</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <td>LOW__1044.376</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <td>LOW__1050.57</td>
+      <td>9</td>
+    </tr>
+  </tbody>
+</table></section><section><h2>Table 7. feature correlation preview</h2><p></p><p> Part 1/3.</p><table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>feature</th>
+      <th>LOW__908.1</th>
+      <th>LOW__914.294</th>
+      <th>LOW__920.489</th>
+      <th>LOW__926.683</th>
+      <th>LOW__932.877</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>LOW__908.1</td>
+      <td>1</td>
+      <td>0.999056</td>
+      <td>0.996708</td>
+      <td>0.9937</td>
+      <td>0.989069</td>
+    </tr>
+    <tr>
+      <td>LOW__914.294</td>
+      <td>0.999056</td>
+      <td>1</td>
+      <td>0.999281</td>
+      <td>0.997617</td>
+      <td>0.994495</td>
+    </tr>
+    <tr>
+      <td>LOW__920.489</td>
+      <td>0.996708</td>
+      <td>0.999281</td>
+      <td>1</td>
+      <td>0.99951</td>
+      <td>0.997738</td>
+    </tr>
+    <tr>
+      <td>LOW__926.683</td>
+      <td>0.9937</td>
+      <td>0.997617</td>
+      <td>0.99951</td>
+      <td>1</td>
+      <td>0.999326</td>
+    </tr>
+    <tr>
+      <td>LOW__932.877</td>
+      <td>0.989069</td>
+      <td>0.994495</td>
+      <td>0.997738</td>
+      <td>0.999326</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>LOW__939.072</td>
+      <td>0.985</td>
+      <td>0.991477</td>
+      <td>0.995665</td>
+      <td>0.998021</td>
+      <td>0.999655</td>
+    </tr>
+    <tr>
+      <td>LOW__945.266</td>
+      <td>0.981544</td>
+      <td>0.988793</td>
+      <td>0.993678</td>
+      <td>0.996602</td>
+      <td>0.998948</td>
+    </tr>
+    <tr>
+      <td>LOW__951.46</td>
+      <td>0.979068</td>
+      <td>0.986798</td>
+      <td>0.992125</td>
+      <td>0.995412</td>
+      <td>0.998238</td>
+    </tr>
+    <tr>
+      <td>LOW__957.655</td>
+      <td>0.977248</td>
+      <td>0.985368</td>
+      <td>0.991026</td>
+      <td>0.994589</td>
+      <td>0.997722</td>
+    </tr>
+    <tr>
+      <td>LOW__963.849</td>
+      <td>0.975548</td>
+      <td>0.983969</td>
+      <td>0.989906</td>
+      <td>0.993695</td>
+      <td>0.997126</td>
+    </tr>
+    <tr>
+      <td>LOW__970.044</td>
+      <td>0.973196</td>
+      <td>0.982082</td>
+      <td>0.988413</td>
+      <td>0.992527</td>
+      <td>0.99632</td>
+    </tr>
+    <tr>
+      <td>LOW__976.238</td>
+      <td>0.970902</td>
+      <td>0.980195</td>
+      <td>0.986887</td>
+      <td>0.991298</td>
+      <td>0.995439</td>
+    </tr>
+  </tbody>
+</table><p> Part 2/3.</p><table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>feature</th>
+      <th>LOW__939.072</th>
+      <th>LOW__945.266</th>
+      <th>LOW__951.46</th>
+      <th>LOW__957.655</th>
+      <th>LOW__963.849</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>LOW__908.1</td>
+      <td>0.985</td>
+      <td>0.981544</td>
+      <td>0.979068</td>
+      <td>0.977248</td>
+      <td>0.975548</td>
+    </tr>
+    <tr>
+      <td>LOW__914.294</td>
+      <td>0.991477</td>
+      <td>0.988793</td>
+      <td>0.986798</td>
+      <td>0.985368</td>
+      <td>0.983969</td>
+    </tr>
+    <tr>
+      <td>LOW__920.489</td>
+      <td>0.995665</td>
+      <td>0.993678</td>
+      <td>0.992125</td>
+      <td>0.991026</td>
+      <td>0.989906</td>
+    </tr>
+    <tr>
+      <td>LOW__926.683</td>
+      <td>0.998021</td>
+      <td>0.996602</td>
+      <td>0.995412</td>
+      <td>0.994589</td>
+      <td>0.993695</td>
+    </tr>
+    <tr>
+      <td>LOW__932.877</td>
+      <td>0.999655</td>
+      <td>0.998948</td>
+      <td>0.998238</td>
+      <td>0.997722</td>
+      <td>0.997126</td>
+    </tr>
+    <tr>
+      <td>LOW__939.072</td>
+      <td>1</td>
+      <td>0.999805</td>
+      <td>0.999447</td>
+      <td>0.999148</td>
+      <td>0.998769</td>
+    </tr>
+    <tr>
+      <td>LOW__945.266</td>
+      <td>0.999805</td>
+      <td>1</td>
+      <td>0.9999</td>
+      <td>0.999757</td>
+      <td>0.999543</td>
+    </tr>
+    <tr>
+      <td>LOW__951.46</td>
+      <td>0.999447</td>
+      <td>0.9999</td>
+      <td>1</td>
+      <td>0.999955</td>
+      <td>0.999859</td>
+    </tr>
+    <tr>
+      <td>LOW__957.655</td>
+      <td>0.999148</td>
+      <td>0.999757</td>
+      <td>0.999955</td>
+      <td>1</td>
+      <td>0.999963</td>
+    </tr>
+    <tr>
+      <td>LOW__963.849</td>
+      <td>0.998769</td>
+      <td>0.999543</td>
+      <td>0.999859</td>
+      <td>0.999963</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>LOW__970.044</td>
+      <td>0.99822</td>
+      <td>0.999179</td>
+      <td>0.99961</td>
+      <td>0.999823</td>
+      <td>0.999932</td>
+    </tr>
+    <tr>
+      <td>LOW__976.238</td>
+      <td>0.997588</td>
+      <td>0.998729</td>
+      <td>0.999282</td>
+      <td>0.999585</td>
+      <td>0.99977</td>
+    </tr>
+  </tbody>
+</table><p> Part 3/3.</p><table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>feature</th>
+      <th>LOW__970.044</th>
+      <th>LOW__976.238</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>LOW__908.1</td>
+      <td>0.973196</td>
+      <td>0.970902</td>
+    </tr>
+    <tr>
+      <td>LOW__914.294</td>
+      <td>0.982082</td>
+      <td>0.980195</td>
+    </tr>
+    <tr>
+      <td>LOW__920.489</td>
+      <td>0.988413</td>
+      <td>0.986887</td>
+    </tr>
+    <tr>
+      <td>LOW__926.683</td>
+      <td>0.992527</td>
+      <td>0.991298</td>
+    </tr>
+    <tr>
+      <td>LOW__932.877</td>
+      <td>0.99632</td>
+      <td>0.995439</td>
+    </tr>
+    <tr>
+      <td>LOW__939.072</td>
+      <td>0.99822</td>
+      <td>0.997588</td>
+    </tr>
+    <tr>
+      <td>LOW__945.266</td>
+      <td>0.999179</td>
+      <td>0.998729</td>
+    </tr>
+    <tr>
+      <td>LOW__951.46</td>
+      <td>0.99961</td>
+      <td>0.999282</td>
+    </tr>
+    <tr>
+      <td>LOW__957.655</td>
+      <td>0.999823</td>
+      <td>0.999585</td>
+    </tr>
+    <tr>
+      <td>LOW__963.849</td>
+      <td>0.999932</td>
+      <td>0.99977</td>
+    </tr>
+    <tr>
+      <td>LOW__970.044</td>
+      <td>1</td>
+      <td>0.999949</td>
+    </tr>
+    <tr>
+      <td>LOW__976.238</td>
+      <td>0.999949</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table></section><section><h2>Table 8. group diagnostics</h2><p> Showing 24 of 63 rows; the complete table is in group_diagnostics.csv.</p><p> Part 1/2.</p><table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>model</th>
+      <th>group</th>
+      <th>n</th>
+      <th>reference_mean</th>
+      <th>prediction_mean</th>
+      <th>rmse</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Early fusion (PLS)</td>
+      <td>sample1</td>
+      <td>1</td>
+      <td>40.15</td>
+      <td>39.6911</td>
+      <td>0.458913</td>
+    </tr>
+    <tr>
+      <td>Early fusion (PLS)</td>
+      <td>sample2</td>
+      <td>1</td>
+      <td>39.93</td>
+      <td>39.9154</td>
+      <td>0.0146203</td>
+    </tr>
+    <tr>
+      <td>Early fusion (PLS)</td>
+      <td>sample3</td>
+      <td>1</td>
+      <td>59.66</td>
+      <td>40.2368</td>
+      <td>19.4232</td>
+    </tr>
+    <tr>
+      <td>Early fusion (PLS)</td>
+      <td>sample4</td>
+      <td>1</td>
+      <td>60.03</td>
+      <td>60.3648</td>
+      <td>0.334765</td>
+    </tr>
+    <tr>
+      <td>Early fusion (PLS)</td>
+      <td>sample5</td>
+      <td>1</td>
+      <td>50.15</td>
+      <td>49.5532</td>
+      <td>0.596835</td>
+    </tr>
+    <tr>
+      <td>Early fusion (PLS)</td>
+      <td>sample6</td>
+      <td>1</td>
+      <td>49.89</td>
+      <td>49.1391</td>
+      <td>0.750946</td>
+    </tr>
+    <tr>
+      <td>Early fusion (PLS)</td>
+      <td>sample7</td>
+      <td>1</td>
+      <td>39.66</td>
+      <td>41.1712</td>
+      <td>1.51116</td>
+    </tr>
+    <tr>
+      <td>Early fusion (PLS)</td>
+      <td>sample8</td>
+      <td>1</td>
+      <td>59.3</td>
+      <td>48.1217</td>
+      <td>11.1783</td>
+    </tr>
+    <tr>
+      <td>Early fusion (PLS)</td>
+      <td>sample9</td>
+      <td>1</td>
+      <td>49.91</td>
+      <td>50.3036</td>
+      <td>0.393634</td>
+    </tr>
+    <tr>
+      <td>Late fusion (equal weights)</td>
+      <td>sample1</td>
+      <td>1</td>
+      <td>40.15</td>
+      <td>39.0565</td>
+      <td>1.09351</td>
+    </tr>
+    <tr>
+      <td>Late fusion (equal weights)</td>
+      <td>sample2</td>
+      <td>1</td>
+      <td>39.93</td>
+      <td>47.3866</td>
+      <td>7.45663</td>
+    </tr>
+    <tr>
+      <td>Late fusion (equal weights)</td>
+      <td>sample3</td>
+      <td>1</td>
+      <td>59.66</td>
+      <td>41.634</td>
+      <td>18.026</td>
+    </tr>
+    <tr>
+      <td>Late fusion (equal weights)</td>
+      <td>sample4</td>
+      <td>1</td>
+      <td>60.03</td>
+      <td>57.1607</td>
+      <td>2.86928</td>
+    </tr>
+    <tr>
+      <td>Late fusion (equal weights)</td>
+      <td>sample5</td>
+      <td>1</td>
+      <td>50.15</td>
+      <td>50.2896</td>
+      <td>0.139566</td>
+    </tr>
+    <tr>
+      <td>Late fusion (equal weights)</td>
+      <td>sample6</td>
+      <td>1</td>
+      <td>49.89</td>
+      <td>47.9275</td>
+      <td>1.96251</td>
+    </tr>
+    <tr>
+      <td>Late fusion (equal weights)</td>
+      <td>sample7</td>
+      <td>1</td>
+      <td>39.66</td>
+      <td>46.6063</td>
+      <td>6.94627</td>
+    </tr>
+    <tr>
+      <td>Late fusion (equal weights)</td>
+      <td>sample8</td>
+      <td>1</td>
+      <td>59.3</td>
+      <td>47.898</td>
+      <td>11.402</td>
+    </tr>
+    <tr>
+      <td>Late fusion (equal weights)</td>
+      <td>sample9</td>
+      <td>1</td>
+      <td>49.91</td>
+      <td>50.216</td>
+      <td>0.30595</td>
+    </tr>
+    <tr>
+      <td>Late fusion (inverse RMSE)</td>
+      <td>sample1</td>
+      <td>1</td>
+      <td>40.15</td>
+      <td>39.2947</td>
+      <td>0.855302</td>
+    </tr>
+    <tr>
+      <td>Late fusion (inverse RMSE)</td>
+      <td>sample2</td>
+      <td>1</td>
+      <td>39.93</td>
+      <td>47.6753</td>
+      <td>7.74533</td>
+    </tr>
+    <tr>
+      <td>Late fusion (inverse RMSE)</td>
+      <td>sample3</td>
+      <td>1</td>
+      <td>59.66</td>
+      <td>41.4576</td>
+      <td>18.2024</td>
+    </tr>
+    <tr>
+      <td>Late fusion (inverse RMSE)</td>
+      <td>sample4</td>
+      <td>1</td>
+      <td>60.03</td>
+      <td>57.3758</td>
+      <td>2.65416</td>
+    </tr>
+    <tr>
+      <td>Late fusion (inverse RMSE)</td>
+      <td>sample5</td>
+      <td>1</td>
+      <td>50.15</td>
+      <td>50.284</td>
+      <td>0.133967</td>
+    </tr>
+    <tr>
+      <td>Late fusion (inverse RMSE)</td>
+      <td>sample6</td>
+      <td>1</td>
+      <td>49.89</td>
+      <td>48.2427</td>
+      <td>1.64734</td>
+    </tr>
+  </tbody>
+</table><p> Part 2/2.</p><table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>model</th>
+      <th>mae</th>
+      <th>bias</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Early fusion (PLS)</td>
+      <td>0.458913</td>
+      <td>-0.458913</td>
+    </tr>
+    <tr>
+      <td>Early fusion (PLS)</td>
+      <td>0.0146203</td>
+      <td>-0.0146203</td>
+    </tr>
+    <tr>
+      <td>Early fusion (PLS)</td>
+      <td>19.4232</td>
+      <td>-19.4232</td>
+    </tr>
+    <tr>
+      <td>Early fusion (PLS)</td>
+      <td>0.334765</td>
+      <td>0.334765</td>
+    </tr>
+    <tr>
+      <td>Early fusion (PLS)</td>
+      <td>0.596835</td>
+      <td>-0.596835</td>
+    </tr>
+    <tr>
+      <td>Early fusion (PLS)</td>
+      <td>0.750946</td>
+      <td>-0.750946</td>
+    </tr>
+    <tr>
+      <td>Early fusion (PLS)</td>
+      <td>1.51116</td>
+      <td>1.51116</td>
+    </tr>
+    <tr>
+      <td>Early fusion (PLS)</td>
+      <td>11.1783</td>
+      <td>-11.1783</td>
+    </tr>
+    <tr>
+      <td>Early fusion (PLS)</td>
+      <td>0.393634</td>
+      <td>0.393634</td>
+    </tr>
+    <tr>
+      <td>Late fusion (equal weights)</td>
+      <td>1.09351</td>
+      <td>-1.09351</td>
+    </tr>
+    <tr>
+      <td>Late fusion (equal weights)</td>
+      <td>7.45663</td>
+      <td>7.45663</td>
+    </tr>
+    <tr>
+      <td>Late fusion (equal weights)</td>
+      <td>18.026</td>
+      <td>-18.026</td>
+    </tr>
+    <tr>
+      <td>Late fusion (equal weights)</td>
+      <td>2.86928</td>
+      <td>-2.86928</td>
+    </tr>
+    <tr>
+      <td>Late fusion (equal weights)</td>
+      <td>0.139566</td>
+      <td>0.139566</td>
+    </tr>
+    <tr>
+      <td>Late fusion (equal weights)</td>
+      <td>1.96251</td>
+      <td>-1.96251</td>
+    </tr>
+    <tr>
+      <td>Late fusion (equal weights)</td>
+      <td>6.94627</td>
+      <td>6.94627</td>
+    </tr>
+    <tr>
+      <td>Late fusion (equal weights)</td>
+      <td>11.402</td>
+      <td>-11.402</td>
+    </tr>
+    <tr>
+      <td>Late fusion (equal weights)</td>
+      <td>0.30595</td>
+      <td>0.30595</td>
+    </tr>
+    <tr>
+      <td>Late fusion (inverse RMSE)</td>
+      <td>0.855302</td>
+      <td>-0.855302</td>
+    </tr>
+    <tr>
+      <td>Late fusion (inverse RMSE)</td>
+      <td>7.74533</td>
+      <td>7.74533</td>
+    </tr>
+    <tr>
+      <td>Late fusion (inverse RMSE)</td>
+      <td>18.2024</td>
+      <td>-18.2024</td>
+    </tr>
+    <tr>
+      <td>Late fusion (inverse RMSE)</td>
+      <td>2.65416</td>
+      <td>-2.65416</td>
+    </tr>
+    <tr>
+      <td>Late fusion (inverse RMSE)</td>
+      <td>0.133967</td>
+      <td>0.133967</td>
+    </tr>
+    <tr>
+      <td>Late fusion (inverse RMSE)</td>
+      <td>1.64734</td>
+      <td>-1.64734</td>
+    </tr>
+  </tbody>
+</table></section><section><h2>Table 9. reference range diagnostics</h2><p> Showing 24 of 28 rows; the complete table is in reference_range_diagnostics.csv.</p><p> Part 1/2.</p><table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>model</th>
+      <th>reference_bin</th>
+      <th>lower_reference</th>
+      <th>upper_reference</th>
+      <th>reference_mean</th>
+      <th>n</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Early fusion (PLS)</td>
+      <td>0</td>
+      <td>39.66</td>
+      <td>40.15</td>
+      <td>39.9133</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <td>Early fusion (PLS)</td>
+      <td>1</td>
+      <td>40.15</td>
+      <td>49.91</td>
+      <td>49.9</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>Early fusion (PLS)</td>
+      <td>2</td>
+      <td>49.91</td>
+      <td>59.3</td>
+      <td>54.725</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>Early fusion (PLS)</td>
+      <td>3</td>
+      <td>59.3</td>
+      <td>60.03</td>
+      <td>59.845</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>Late fusion (equal weights)</td>
+      <td>0</td>
+      <td>39.66</td>
+      <td>40.15</td>
+      <td>39.9133</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <td>Late fusion (equal weights)</td>
+      <td>1</td>
+      <td>40.15</td>
+      <td>49.91</td>
+      <td>49.9</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>Late fusion (equal weights)</td>
+      <td>2</td>
+      <td>49.91</td>
+      <td>59.3</td>
+      <td>54.725</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>Late fusion (equal weights)</td>
+      <td>3</td>
+      <td>59.3</td>
+      <td>60.03</td>
+      <td>59.845</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>Late fusion (inverse RMSE)</td>
+      <td>0</td>
+      <td>39.66</td>
+      <td>40.15</td>
+      <td>39.9133</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <td>Late fusion (inverse RMSE)</td>
+      <td>1</td>
+      <td>40.15</td>
+      <td>49.91</td>
+      <td>49.9</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>Late fusion (inverse RMSE)</td>
+      <td>2</td>
+      <td>49.91</td>
+      <td>59.3</td>
+      <td>54.725</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>Late fusion (inverse RMSE)</td>
+      <td>3</td>
+      <td>59.3</td>
+      <td>60.03</td>
+      <td>59.845</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>Late fusion (trained weights)</td>
+      <td>0</td>
+      <td>39.66</td>
+      <td>40.15</td>
+      <td>39.9133</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <td>Late fusion (trained weights)</td>
+      <td>1</td>
+      <td>40.15</td>
+      <td>49.91</td>
+      <td>49.9</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>Late fusion (trained weights)</td>
+      <td>2</td>
+      <td>49.91</td>
+      <td>59.3</td>
+      <td>54.725</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>Late fusion (trained weights)</td>
+      <td>3</td>
+      <td>59.3</td>
+      <td>60.03</td>
+      <td>59.845</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>Single block: HIGH</td>
+      <td>0</td>
+      <td>39.66</td>
+      <td>40.15</td>
+      <td>39.9133</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <td>Single block: HIGH</td>
+      <td>1</td>
+      <td>40.15</td>
+      <td>49.91</td>
+      <td>49.9</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>Single block: HIGH</td>
+      <td>2</td>
+      <td>49.91</td>
+      <td>59.3</td>
+      <td>54.725</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>Single block: HIGH</td>
+      <td>3</td>
+      <td>59.3</td>
+      <td>60.03</td>
+      <td>59.845</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>Single block: LOW</td>
+      <td>0</td>
+      <td>39.66</td>
+      <td>40.15</td>
+      <td>39.9133</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <td>Single block: LOW</td>
+      <td>1</td>
+      <td>40.15</td>
+      <td>49.91</td>
+      <td>49.9</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>Single block: LOW</td>
+      <td>2</td>
+      <td>49.91</td>
+      <td>59.3</td>
+      <td>54.725</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>Single block: LOW</td>
+      <td>3</td>
+      <td>59.3</td>
+      <td>60.03</td>
+      <td>59.845</td>
+      <td>2</td>
+    </tr>
+  </tbody>
+</table><p> Part 2/2.</p><table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>model</th>
+      <th>n_groups</th>
+      <th>rmse</th>
+      <th>group_rmse</th>
+      <th>bias</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Early fusion (PLS)</td>
+      <td>3</td>
+      <td>0.91185</td>
+      <td>0.91185</td>
+      <td>0.345875</td>
+    </tr>
+    <tr>
+      <td>Early fusion (PLS)</td>
+      <td>2</td>
+      <td>0.599528</td>
+      <td>0.599528</td>
+      <td>-0.178656</td>
+    </tr>
+    <tr>
+      <td>Early fusion (PLS)</td>
+      <td>2</td>
+      <td>7.91553</td>
+      <td>7.91553</td>
+      <td>-5.88758</td>
+    </tr>
+    <tr>
+      <td>Early fusion (PLS)</td>
+      <td>2</td>
+      <td>13.7363</td>
+      <td>13.7363</td>
+      <td>-9.54423</td>
+    </tr>
+    <tr>
+      <td>Late fusion (equal weights)</td>
+      <td>3</td>
+      <td>5.91742</td>
+      <td>5.91742</td>
+      <td>4.43646</td>
+    </tr>
+    <tr>
+      <td>Late fusion (equal weights)</td>
+      <td>2</td>
+      <td>1.40446</td>
+      <td>1.40446</td>
+      <td>-0.828278</td>
+    </tr>
+    <tr>
+      <td>Late fusion (equal weights)</td>
+      <td>2</td>
+      <td>8.063</td>
+      <td>8.063</td>
+      <td>-5.63119</td>
+    </tr>
+    <tr>
+      <td>Late fusion (equal weights)</td>
+      <td>2</td>
+      <td>12.9067</td>
+      <td>12.9067</td>
+      <td>-10.4476</td>
+    </tr>
+    <tr>
+      <td>Late fusion (inverse RMSE)</td>
+      <td>3</td>
+      <td>6.11028</td>
+      <td>6.11028</td>
+      <td>4.68379</td>
+    </tr>
+    <tr>
+      <td>Late fusion (inverse RMSE)</td>
+      <td>2</td>
+      <td>1.1699</td>
+      <td>1.1699</td>
+      <td>-0.746895</td>
+    </tr>
+    <tr>
+      <td>Late fusion (inverse RMSE)</td>
+      <td>2</td>
+      <td>8.06401</td>
+      <td>8.06401</td>
+      <td>-5.63474</td>
+    </tr>
+    <tr>
+      <td>Late fusion (inverse RMSE)</td>
+      <td>2</td>
+      <td>13.0072</td>
+      <td>13.0072</td>
+      <td>-10.4283</td>
+    </tr>
+    <tr>
+      <td>Late fusion (trained weights)</td>
+      <td>3</td>
+      <td>6.30889</td>
+      <td>6.30889</td>
+      <td>4.95734</td>
+    </tr>
+    <tr>
+      <td>Late fusion (trained weights)</td>
+      <td>2</td>
+      <td>1.25586</td>
+      <td>1.25586</td>
+      <td>-1.25577</td>
+    </tr>
+    <tr>
+      <td>Late fusion (trained weights)</td>
+      <td>2</td>
+      <td>8.06687</td>
+      <td>8.06687</td>
+      <td>-5.65869</td>
+    </tr>
+    <tr>
+      <td>Late fusion (trained weights)</td>
+      <td>2</td>
+      <td>13.2541</td>
+      <td>13.2541</td>
+      <td>-9.68831</td>
+    </tr>
+    <tr>
+      <td>Single block: HIGH</td>
+      <td>3</td>
+      <td>0.77911</td>
+      <td>0.77911</td>
+      <td>0.381235</td>
+    </tr>
+    <tr>
+      <td>Single block: HIGH</td>
+      <td>2</td>
+      <td>1.02196</td>
+      <td>1.02196</td>
+      <td>-0.97961</td>
+    </tr>
+    <tr>
+      <td>Single block: HIGH</td>
+      <td>2</td>
+      <td>8.0704</td>
+      <td>8.0704</td>
+      <td>-5.52931</td>
+    </tr>
+    <tr>
+      <td>Single block: HIGH</td>
+      <td>2</td>
+      <td>13.2541</td>
+      <td>13.2541</td>
+      <td>-9.68831</td>
+    </tr>
+    <tr>
+      <td>Single block: LOW</td>
+      <td>3</td>
+      <td>11.3457</td>
+      <td>11.3457</td>
+      <td>8.49169</td>
+    </tr>
+    <tr>
+      <td>Single block: LOW</td>
+      <td>2</td>
+      <td>2.64762</td>
+      <td>2.64762</td>
+      <td>-0.676946</td>
+    </tr>
+    <tr>
+      <td>Single block: LOW</td>
+      <td>2</td>
+      <td>8.05833</td>
+      <td>8.05833</td>
+      <td>-5.73307</td>
+    </tr>
+    <tr>
+      <td>Single block: LOW</td>
+      <td>2</td>
+      <td>12.7652</td>
+      <td>12.7652</td>
+      <td>-11.2069</td>
+    </tr>
+  </tbody>
+</table></section><section><h2>Table 10. paired baseline comparison</h2><p></p><p> Part 1/2.</p><table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>model</th>
+      <th>baseline</th>
+      <th>paired_rows</th>
+      <th>paired_groups</th>
+      <th>method_group_rmse</th>
+      <th>baseline_group_rmse</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Early fusion (PLS)</td>
+      <td>training_mean</td>
+      <td>9</td>
+      <td>9</td>
+      <td>7.4974</td>
+      <td>10.0195</td>
+    </tr>
+    <tr>
+      <td>Late fusion (equal weights)</td>
+      <td>training_mean</td>
+      <td>9</td>
+      <td>9</td>
+      <td>7.97346</td>
+      <td>10.0195</td>
+    </tr>
+    <tr>
+      <td>Late fusion (inverse RMSE)</td>
+      <td>training_mean</td>
+      <td>9</td>
+      <td>9</td>
+      <td>8.04965</td>
+      <td>10.0195</td>
+    </tr>
+    <tr>
+      <td>Late fusion (trained weights)</td>
+      <td>training_mean</td>
+      <td>9</td>
+      <td>9</td>
+      <td>8.19249</td>
+      <td>10.0195</td>
+    </tr>
+    <tr>
+      <td>Single block: HIGH</td>
+      <td>training_mean</td>
+      <td>9</td>
+      <td>9</td>
+      <td>7.3448</td>
+      <td>10.0195</td>
+    </tr>
+    <tr>
+      <td>Single block: LOW</td>
+      <td>training_mean</td>
+      <td>9</td>
+      <td>9</td>
+      <td>9.75231</td>
+      <td>10.0195</td>
+    </tr>
+  </tbody>
+</table><p> Part 2/2.</p><table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>model</th>
+      <th>delta_group_rmse</th>
+      <th>interpretation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Early fusion (PLS)</td>
+      <td>-2.52209</td>
+      <td>negative difference favours the method on this paired subset</td>
+    </tr>
+    <tr>
+      <td>Late fusion (equal weights)</td>
+      <td>-2.04603</td>
+      <td>negative difference favours the method on this paired subset</td>
+    </tr>
+    <tr>
+      <td>Late fusion (inverse RMSE)</td>
+      <td>-1.96984</td>
+      <td>negative difference favours the method on this paired subset</td>
+    </tr>
+    <tr>
+      <td>Late fusion (trained weights)</td>
+      <td>-1.827</td>
+      <td>negative difference favours the method on this paired subset</td>
+    </tr>
+    <tr>
+      <td>Single block: HIGH</td>
+      <td>-2.67469</td>
+      <td>negative difference favours the method on this paired subset</td>
+    </tr>
+    <tr>
+      <td>Single block: LOW</td>
+      <td>-0.267179</td>
+      <td>negative difference favours the method on this paired subset</td>
+    </tr>
+  </tbody>
+</table></section><section><h2>Table 11. capabilities</h2><p></p><p></p><table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>capability</th>
+      <th>available</th>
+      <th>level</th>
+      <th>reason</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>input_quality</td>
+      <td>True</td>
+      <td>descriptive</td>
+      <td>Parsed rows and selected field availability are retained.</td>
+    </tr>
+    <tr>
+      <td>paired_descriptions</td>
+      <td>True</td>
+      <td>descriptive</td>
+      <td>Available finite reference/comparison pairs; no missing reference is invented.</td>
+    </tr>
+    <tr>
+      <td>fitted_model</td>
+      <td>False</td>
+      <td>fitting</td>
+      <td>No estimable requested factor model was fitted.</td>
+    </tr>
+    <tr>
+      <td>held_out_evaluation</td>
+      <td>True</td>
+      <td>evaluation</td>
+      <td>Recorded disjoint training/held-out units; interpret small samples as exploratory.</td>
+    </tr>
+    <tr>
+      <td>conditional_uncertainty</td>
+      <td>False</td>
+      <td>inference</td>
+      <td>Required independence, variance, sample structure or prediction provenance is unavailable.</td>
+    </tr>
+  </tbody>
+</table></section></div><h2>Analysis settings</h2><pre>{
+  &quot;input_sha256&quot;: &quot;31ac4954d1c8c50453a6f1a26bc5f1004bca70a741ec7ec8076bd738a554a398&quot;,
+  &quot;target&quot;: &quot;target&quot;,
+  &quot;id&quot;: &quot;sample_id&quot;,
+  &quot;group&quot;: &quot;group&quot;,
+  &quot;blocks&quot;: {
+    &quot;LOW&quot;: [
+      &quot;LOW__908.1&quot;,
+      &quot;LOW__914.294&quot;,
+      &quot;LOW__920.489&quot;,
+      &quot;LOW__926.683&quot;,
+      &quot;LOW__932.877&quot;,
+      &quot;LOW__939.072&quot;,
+      &quot;LOW__945.266&quot;,
+      &quot;LOW__951.46&quot;,
+      &quot;LOW__957.655&quot;,
+      &quot;LOW__963.849&quot;,
+      &quot;LOW__970.044&quot;,
+      &quot;LOW__976.238&quot;,
+      &quot;LOW__982.432&quot;,
+      &quot;LOW__988.627&quot;,
+      &quot;LOW__994.821&quot;,
+      &quot;LOW__1001.015&quot;,
+      &quot;LOW__1007.21&quot;,
+      &quot;LOW__1013.404&quot;,
+      &quot;LOW__1019.598&quot;,
+      &quot;LOW__1025.793&quot;,
+      &quot;LOW__1031.987&quot;,
+      &quot;LOW__1038.181&quot;,
+      &quot;LOW__1044.376&quot;,
+      &quot;LOW__1050.57&quot;,
+      &quot;LOW__1056.764&quot;,
+      &quot;LOW__1062.959&quot;,
+      &quot;LOW__1069.153&quot;,
+      &quot;LOW__1075.348&quot;,
+      &quot;LOW__1081.542&quot;,
+      &quot;LOW__1087.736&quot;,
+      &quot;LOW__1093.931&quot;,
+      &quot;LOW__1100.125&quot;,
+      &quot;LOW__1106.319&quot;,
+      &quot;LOW__1112.514&quot;,
+      &quot;LOW__1118.708&quot;,
+      &quot;LOW__1124.902&quot;,
+      &quot;LOW__1131.097&quot;,
+      &quot;LOW__1137.291&quot;,
+      &quot;LOW__1143.485&quot;,
+      &quot;LOW__1149.68&quot;,
+      &quot;LOW__1155.874&quot;,
+      &quot;LOW__1162.069&quot;,
+      &quot;LOW__1168.263&quot;,
+      &quot;LOW__1174.457&quot;,
+      &quot;LOW__1180.652&quot;,
+      &quot;LOW__1186.846&quot;,
+      &quot;LOW__1193.04&quot;,
+      &quot;LOW__1199.235&quot;,
+      &quot;LOW__1205.429&quot;,
+      &quot;LOW__1211.623&quot;,
+      &quot;LOW__1217.818&quot;,
+      &quot;LOW__1224.012&quot;,
+      &quot;LOW__1230.206&quot;,
+      &quot;LOW__1236.401&quot;,
+      &quot;LOW__1242.595&quot;,
+      &quot;LOW__1248.789&quot;,
+      &quot;LOW__1254.984&quot;,
+      &quot;LOW__1261.178&quot;,
+      &quot;LOW__1267.373&quot;,
+      &quot;LOW__1273.567&quot;,
+      &quot;LOW__1279.761&quot;,
+      &quot;LOW__1285.956&quot;,
+      &quot;LOW__1292.15&quot;,
+      &quot;LOW__1298.344&quot;
+    ],
+    &quot;HIGH&quot;: [
+      &quot;HIGH__1304.539&quot;,
+      &quot;HIGH__1310.733&quot;,
+      &quot;HIGH__1316.927&quot;,
+      &quot;HIGH__1323.122&quot;,
+      &quot;HIGH__1329.316&quot;,
+      &quot;HIGH__1335.51&quot;,
+      &quot;HIGH__1341.705&quot;,
+      &quot;HIGH__1347.899&quot;,
+      &quot;HIGH__1354.094&quot;,
+      &quot;HIGH__1360.288&quot;,
+      &quot;HIGH__1366.482&quot;,
+      &quot;HIGH__1372.677&quot;,
+      &quot;HIGH__1378.871&quot;,
+      &quot;HIGH__1385.065&quot;,
+      &quot;HIGH__1391.26&quot;,
+      &quot;HIGH__1397.454&quot;,
+      &quot;HIGH__1403.648&quot;,
+      &quot;HIGH__1409.843&quot;,
+      &quot;HIGH__1416.037&quot;,
+      &quot;HIGH__1422.231&quot;,
+      &quot;HIGH__1428.426&quot;,
+      &quot;HIGH__1434.62&quot;,
+      &quot;HIGH__1440.814&quot;,
+      &quot;HIGH__1447.009&quot;,
+      &quot;HIGH__1453.203&quot;,
+      &quot;HIGH__1459.398&quot;,
+      &quot;HIGH__1465.592&quot;,
+      &quot;HIGH__1471.786&quot;,
+      &quot;HIGH__1477.981&quot;,
+      &quot;HIGH__1484.175&quot;,
+      &quot;HIGH__1490.369&quot;,
+      &quot;HIGH__1496.564&quot;,
+      &quot;HIGH__1502.758&quot;,
+      &quot;HIGH__1508.952&quot;,
+      &quot;HIGH__1515.147&quot;,
+      &quot;HIGH__1521.341&quot;,
+      &quot;HIGH__1527.535&quot;,
+      &quot;HIGH__1533.73&quot;,
+      &quot;HIGH__1539.924&quot;,
+      &quot;HIGH__1546.119&quot;,
+      &quot;HIGH__1552.313&quot;,
+      &quot;HIGH__1558.507&quot;,
+      &quot;HIGH__1564.702&quot;,
+      &quot;HIGH__1570.896&quot;,
+      &quot;HIGH__1577.09&quot;,
+      &quot;HIGH__1583.285&quot;,
+      &quot;HIGH__1589.479&quot;,
+      &quot;HIGH__1595.673&quot;,
+      &quot;HIGH__1601.868&quot;,
+      &quot;HIGH__1608.062&quot;,
+      &quot;HIGH__1614.256&quot;,
+      &quot;HIGH__1620.451&quot;,
+      &quot;HIGH__1626.645&quot;,
+      &quot;HIGH__1632.839&quot;,
+      &quot;HIGH__1639.034&quot;,
+      &quot;HIGH__1645.228&quot;,
+      &quot;HIGH__1651.423&quot;,
+      &quot;HIGH__1657.617&quot;,
+      &quot;HIGH__1663.811&quot;,
+      &quot;HIGH__1670.006&quot;,
+      &quot;HIGH__1676.2&quot;
+    ]
+  },
+  &quot;components&quot;: [
+    1,
+    2,
+    3
+  ],
+  &quot;outer_max_folds&quot;: 5,
+  &quot;inner_max_folds&quot;: 3,
+  &quot;common_comparison&quot;: {
+    &quot;n_rows&quot;: 9,
+    &quot;n_groups&quot;: 9,
+    &quot;methods&quot;: [
+      &quot;single_LOW&quot;,
+      &quot;single_HIGH&quot;,
+      &quot;early_pls&quot;,
+      &quot;late_equal&quot;,
+      &quot;late_weighted&quot;,
+      &quot;late_inverse_rmse&quot;,
+      &quot;training_mean&quot;
+    ],
+    &quot;excluded_methods&quot;: [],
+    &quot;selection_rule&quot;: &quot;Exclude methods without any held-out predictions and fusion when fewer than two single blocks are usable; never select by error.&quot;,
+    &quot;status&quot;: &quot;available&quot;
+  },
+  &quot;n_rows&quot;: 9,
+  &quot;n_labelled&quot;: 9,
+  &quot;n_groups&quot;: 9,
+  &quot;software_source_sha256&quot;: &quot;aa59a799ea948799fe43e53338e1aa41de440f5a707708cca9db12bb389e2fc6&quot;,
+  &quot;source_hash_definition&quot;: &quot;SHA256 of sorted relative Python paths and file bytes, each terminated by a NUL byte&quot;,
+  &quot;application&quot;: &quot;sensefusion&quot;,
+  &quot;software_version&quot;: &quot;0.5.2&quot;,
+  &quot;configuration_schema_version&quot;: &quot;1.2&quot;,
+  &quot;call_parameters&quot;: {
+    &quot;target&quot;: &quot;target&quot;,
+    &quot;id_col&quot;: &quot;sample_id&quot;,
+    &quot;group_col&quot;: &quot;group&quot;,
+    &quot;block_columns&quot;: {
+      &quot;LOW&quot;: [
+        &quot;LOW__908.1&quot;,
+        &quot;LOW__914.294&quot;,
+        &quot;LOW__920.489&quot;,
+        &quot;LOW__926.683&quot;,
+        &quot;LOW__932.877&quot;,
+        &quot;LOW__939.072&quot;,
+        &quot;LOW__945.266&quot;,
+        &quot;LOW__951.46&quot;,
+        &quot;LOW__957.655&quot;,
+        &quot;LOW__963.849&quot;,
+        &quot;LOW__970.044&quot;,
+        &quot;LOW__976.238&quot;,
+        &quot;LOW__982.432&quot;,
+        &quot;LOW__988.627&quot;,
+        &quot;LOW__994.821&quot;,
+        &quot;LOW__1001.015&quot;,
+        &quot;LOW__1007.21&quot;,
+        &quot;LOW__1013.404&quot;,
+        &quot;LOW__1019.598&quot;,
+        &quot;LOW__1025.793&quot;,
+        &quot;LOW__1031.987&quot;,
+        &quot;LOW__1038.181&quot;,
+        &quot;LOW__1044.376&quot;,
+        &quot;LOW__1050.57&quot;,
+        &quot;LOW__1056.764&quot;,
+        &quot;LOW__1062.959&quot;,
+        &quot;LOW__1069.153&quot;,
+        &quot;LOW__1075.348&quot;,
+        &quot;LOW__1081.542&quot;,
+        &quot;LOW__1087.736&quot;,
+        &quot;LOW__1093.931&quot;,
+        &quot;LOW__1100.125&quot;,
+        &quot;LOW__1106.319&quot;,
+        &quot;LOW__1112.514&quot;,
+        &quot;LOW__1118.708&quot;,
+        &quot;LOW__1124.902&quot;,
+        &quot;LOW__1131.097&quot;,
+        &quot;LOW__1137.291&quot;,
+        &quot;LOW__1143.485&quot;,
+        &quot;LOW__1149.68&quot;,
+        &quot;LOW__1155.874&quot;,
+        &quot;LOW__1162.069&quot;,
+        &quot;LOW__1168.263&quot;,
+        &quot;LOW__1174.457&quot;,
+        &quot;LOW__1180.652&quot;,
+        &quot;LOW__1186.846&quot;,
+        &quot;LOW__1193.04&quot;,
+        &quot;LOW__1199.235&quot;,
+        &quot;LOW__1205.429&quot;,
+        &quot;LOW__1211.623&quot;,
+        &quot;LOW__1217.818&quot;,
+        &quot;LOW__1224.012&quot;,
+        &quot;LOW__1230.206&quot;,
+        &quot;LOW__1236.401&quot;,
+        &quot;LOW__1242.595&quot;,
+        &quot;LOW__1248.789&quot;,
+        &quot;LOW__1254.984&quot;,
+        &quot;LOW__1261.178&quot;,
+        &quot;LOW__1267.373&quot;,
+        &quot;LOW__1273.567&quot;,
+        &quot;LOW__1279.761&quot;,
+        &quot;LOW__1285.956&quot;,
+        &quot;LOW__1292.15&quot;,
+        &quot;LOW__1298.344&quot;
+      ],
+      &quot;HIGH&quot;: [
+        &quot;HIGH__1304.539&quot;,
+        &quot;HIGH__1310.733&quot;,
+        &quot;HIGH__1316.927&quot;,
+        &quot;HIGH__1323.122&quot;,
+        &quot;HIGH__1329.316&quot;,
+        &quot;HIGH__1335.51&quot;,
+        &quot;HIGH__1341.705&quot;,
+        &quot;HIGH__1347.899&quot;,
+        &quot;HIGH__1354.094&quot;,
+        &quot;HIGH__1360.288&quot;,
+        &quot;HIGH__1366.482&quot;,
+        &quot;HIGH__1372.677&quot;,
+        &quot;HIGH__1378.871&quot;,
+        &quot;HIGH__1385.065&quot;,
+        &quot;HIGH__1391.26&quot;,
+        &quot;HIGH__1397.454&quot;,
+        &quot;HIGH__1403.648&quot;,
+        &quot;HIGH__1409.843&quot;,
+        &quot;HIGH__1416.037&quot;,
+        &quot;HIGH__1422.231&quot;,
+        &quot;HIGH__1428.426&quot;,
+        &quot;HIGH__1434.62&quot;,
+        &quot;HIGH__1440.814&quot;,
+        &quot;HIGH__1447.009&quot;,
+        &quot;HIGH__1453.203&quot;,
+        &quot;HIGH__1459.398&quot;,
+        &quot;HIGH__1465.592&quot;,
+        &quot;HIGH__1471.786&quot;,
+        &quot;HIGH__1477.981&quot;,
+        &quot;HIGH__1484.175&quot;,
+        &quot;HIGH__1490.369&quot;,
+        &quot;HIGH__1496.564&quot;,
+        &quot;HIGH__1502.758&quot;,
+        &quot;HIGH__1508.952&quot;,
+        &quot;HIGH__1515.147&quot;,
+        &quot;HIGH__1521.341&quot;,
+        &quot;HIGH__1527.535&quot;,
+        &quot;HIGH__1533.73&quot;,
+        &quot;HIGH__1539.924&quot;,
+        &quot;HIGH__1546.119&quot;,
+        &quot;HIGH__1552.313&quot;,
+        &quot;HIGH__1558.507&quot;,
+        &quot;HIGH__1564.702&quot;,
+        &quot;HIGH__1570.896&quot;,
+        &quot;HIGH__1577.09&quot;,
+        &quot;HIGH__1583.285&quot;,
+        &quot;HIGH__1589.479&quot;,
+        &quot;HIGH__1595.673&quot;,
+        &quot;HIGH__1601.868&quot;,
+        &quot;HIGH__1608.062&quot;,
+        &quot;HIGH__1614.256&quot;,
+        &quot;HIGH__1620.451&quot;,
+        &quot;HIGH__1626.645&quot;,
+        &quot;HIGH__1632.839&quot;,
+        &quot;HIGH__1639.034&quot;,
+        &quot;HIGH__1645.228&quot;,
+        &quot;HIGH__1651.423&quot;,
+        &quot;HIGH__1657.617&quot;,
+        &quot;HIGH__1663.811&quot;,
+        &quot;HIGH__1670.006&quot;,
+        &quot;HIGH__1676.2&quot;
+      ]
+    },
+    &quot;cv_group_col&quot;: null,
+    &quot;column_metadata&quot;: {
+      &quot;target&quot;: {
+        &quot;label&quot;: &quot;Acetaminophen content&quot;,
+        &quot;unit&quot;: &quot;% w/w&quot;
+      }
+    },
+    &quot;input_name&quot;: &quot;temperature_bands.csv&quot;,
+    &quot;provenance&quot;: {
+      &quot;kind&quot;: &quot;bundled_example&quot;,
+      &quot;example&quot;: &quot;temperature_bands.csv&quot;
+    }
+  },
+  &quot;input_name&quot;: &quot;temperature_bands.csv&quot;,
+  &quot;columns&quot;: {
+    &quot;sample_id&quot;: {
+      &quot;label&quot;: &quot;sample_id&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;group&quot;: {
+      &quot;label&quot;: &quot;group&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;target&quot;: {
+      &quot;label&quot;: &quot;Acetaminophen content&quot;,
+      &quot;unit&quot;: &quot;% w/w&quot;
+    },
+    &quot;LOW__908.1&quot;: {
+      &quot;label&quot;: &quot;LOW__908.1&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;LOW__914.294&quot;: {
+      &quot;label&quot;: &quot;LOW__914.294&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;LOW__920.489&quot;: {
+      &quot;label&quot;: &quot;LOW__920.489&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;LOW__926.683&quot;: {
+      &quot;label&quot;: &quot;LOW__926.683&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;LOW__932.877&quot;: {
+      &quot;label&quot;: &quot;LOW__932.877&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;LOW__939.072&quot;: {
+      &quot;label&quot;: &quot;LOW__939.072&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;LOW__945.266&quot;: {
+      &quot;label&quot;: &quot;LOW__945.266&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;LOW__951.46&quot;: {
+      &quot;label&quot;: &quot;LOW__951.46&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;LOW__957.655&quot;: {
+      &quot;label&quot;: &quot;LOW__957.655&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;LOW__963.849&quot;: {
+      &quot;label&quot;: &quot;LOW__963.849&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;LOW__970.044&quot;: {
+      &quot;label&quot;: &quot;LOW__970.044&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;LOW__976.238&quot;: {
+      &quot;label&quot;: &quot;LOW__976.238&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;LOW__982.432&quot;: {
+      &quot;label&quot;: &quot;LOW__982.432&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;LOW__988.627&quot;: {
+      &quot;label&quot;: &quot;LOW__988.627&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;LOW__994.821&quot;: {
+      &quot;label&quot;: &quot;LOW__994.821&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;LOW__1001.015&quot;: {
+      &quot;label&quot;: &quot;LOW__1001.015&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;LOW__1007.21&quot;: {
+      &quot;label&quot;: &quot;LOW__1007.21&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;LOW__1013.404&quot;: {
+      &quot;label&quot;: &quot;LOW__1013.404&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;LOW__1019.598&quot;: {
+      &quot;label&quot;: &quot;LOW__1019.598&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;LOW__1025.793&quot;: {
+      &quot;label&quot;: &quot;LOW__1025.793&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;LOW__1031.987&quot;: {
+      &quot;label&quot;: &quot;LOW__1031.987&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;LOW__1038.181&quot;: {
+      &quot;label&quot;: &quot;LOW__1038.181&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;LOW__1044.376&quot;: {
+      &quot;label&quot;: &quot;LOW__1044.376&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;LOW__1050.57&quot;: {
+      &quot;label&quot;: &quot;LOW__1050.57&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;LOW__1056.764&quot;: {
+      &quot;label&quot;: &quot;LOW__1056.764&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;LOW__1062.959&quot;: {
+      &quot;label&quot;: &quot;LOW__1062.959&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;LOW__1069.153&quot;: {
+      &quot;label&quot;: &quot;LOW__1069.153&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;LOW__1075.348&quot;: {
+      &quot;label&quot;: &quot;LOW__1075.348&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;LOW__1081.542&quot;: {
+      &quot;label&quot;: &quot;LOW__1081.542&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;LOW__1087.736&quot;: {
+      &quot;label&quot;: &quot;LOW__1087.736&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;LOW__1093.931&quot;: {
+      &quot;label&quot;: &quot;LOW__1093.931&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;LOW__1100.125&quot;: {
+      &quot;label&quot;: &quot;LOW__1100.125&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;LOW__1106.319&quot;: {
+      &quot;label&quot;: &quot;LOW__1106.319&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;LOW__1112.514&quot;: {
+      &quot;label&quot;: &quot;LOW__1112.514&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;LOW__1118.708&quot;: {
+      &quot;label&quot;: &quot;LOW__1118.708&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;LOW__1124.902&quot;: {
+      &quot;label&quot;: &quot;LOW__1124.902&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;LOW__1131.097&quot;: {
+      &quot;label&quot;: &quot;LOW__1131.097&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;LOW__1137.291&quot;: {
+      &quot;label&quot;: &quot;LOW__1137.291&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;LOW__1143.485&quot;: {
+      &quot;label&quot;: &quot;LOW__1143.485&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;LOW__1149.68&quot;: {
+      &quot;label&quot;: &quot;LOW__1149.68&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;LOW__1155.874&quot;: {
+      &quot;label&quot;: &quot;LOW__1155.874&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;LOW__1162.069&quot;: {
+      &quot;label&quot;: &quot;LOW__1162.069&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;LOW__1168.263&quot;: {
+      &quot;label&quot;: &quot;LOW__1168.263&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;LOW__1174.457&quot;: {
+      &quot;label&quot;: &quot;LOW__1174.457&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;LOW__1180.652&quot;: {
+      &quot;label&quot;: &quot;LOW__1180.652&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;LOW__1186.846&quot;: {
+      &quot;label&quot;: &quot;LOW__1186.846&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;LOW__1193.04&quot;: {
+      &quot;label&quot;: &quot;LOW__1193.04&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;LOW__1199.235&quot;: {
+      &quot;label&quot;: &quot;LOW__1199.235&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;LOW__1205.429&quot;: {
+      &quot;label&quot;: &quot;LOW__1205.429&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;LOW__1211.623&quot;: {
+      &quot;label&quot;: &quot;LOW__1211.623&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;LOW__1217.818&quot;: {
+      &quot;label&quot;: &quot;LOW__1217.818&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;LOW__1224.012&quot;: {
+      &quot;label&quot;: &quot;LOW__1224.012&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;LOW__1230.206&quot;: {
+      &quot;label&quot;: &quot;LOW__1230.206&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;LOW__1236.401&quot;: {
+      &quot;label&quot;: &quot;LOW__1236.401&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;LOW__1242.595&quot;: {
+      &quot;label&quot;: &quot;LOW__1242.595&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;LOW__1248.789&quot;: {
+      &quot;label&quot;: &quot;LOW__1248.789&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;LOW__1254.984&quot;: {
+      &quot;label&quot;: &quot;LOW__1254.984&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;LOW__1261.178&quot;: {
+      &quot;label&quot;: &quot;LOW__1261.178&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;LOW__1267.373&quot;: {
+      &quot;label&quot;: &quot;LOW__1267.373&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;LOW__1273.567&quot;: {
+      &quot;label&quot;: &quot;LOW__1273.567&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;LOW__1279.761&quot;: {
+      &quot;label&quot;: &quot;LOW__1279.761&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;LOW__1285.956&quot;: {
+      &quot;label&quot;: &quot;LOW__1285.956&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;LOW__1292.15&quot;: {
+      &quot;label&quot;: &quot;LOW__1292.15&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;LOW__1298.344&quot;: {
+      &quot;label&quot;: &quot;LOW__1298.344&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;HIGH__1304.539&quot;: {
+      &quot;label&quot;: &quot;HIGH__1304.539&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;HIGH__1310.733&quot;: {
+      &quot;label&quot;: &quot;HIGH__1310.733&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;HIGH__1316.927&quot;: {
+      &quot;label&quot;: &quot;HIGH__1316.927&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;HIGH__1323.122&quot;: {
+      &quot;label&quot;: &quot;HIGH__1323.122&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;HIGH__1329.316&quot;: {
+      &quot;label&quot;: &quot;HIGH__1329.316&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;HIGH__1335.51&quot;: {
+      &quot;label&quot;: &quot;HIGH__1335.51&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;HIGH__1341.705&quot;: {
+      &quot;label&quot;: &quot;HIGH__1341.705&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;HIGH__1347.899&quot;: {
+      &quot;label&quot;: &quot;HIGH__1347.899&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;HIGH__1354.094&quot;: {
+      &quot;label&quot;: &quot;HIGH__1354.094&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;HIGH__1360.288&quot;: {
+      &quot;label&quot;: &quot;HIGH__1360.288&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;HIGH__1366.482&quot;: {
+      &quot;label&quot;: &quot;HIGH__1366.482&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;HIGH__1372.677&quot;: {
+      &quot;label&quot;: &quot;HIGH__1372.677&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;HIGH__1378.871&quot;: {
+      &quot;label&quot;: &quot;HIGH__1378.871&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;HIGH__1385.065&quot;: {
+      &quot;label&quot;: &quot;HIGH__1385.065&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;HIGH__1391.26&quot;: {
+      &quot;label&quot;: &quot;HIGH__1391.26&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;HIGH__1397.454&quot;: {
+      &quot;label&quot;: &quot;HIGH__1397.454&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;HIGH__1403.648&quot;: {
+      &quot;label&quot;: &quot;HIGH__1403.648&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;HIGH__1409.843&quot;: {
+      &quot;label&quot;: &quot;HIGH__1409.843&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;HIGH__1416.037&quot;: {
+      &quot;label&quot;: &quot;HIGH__1416.037&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;HIGH__1422.231&quot;: {
+      &quot;label&quot;: &quot;HIGH__1422.231&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;HIGH__1428.426&quot;: {
+      &quot;label&quot;: &quot;HIGH__1428.426&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;HIGH__1434.62&quot;: {
+      &quot;label&quot;: &quot;HIGH__1434.62&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;HIGH__1440.814&quot;: {
+      &quot;label&quot;: &quot;HIGH__1440.814&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;HIGH__1447.009&quot;: {
+      &quot;label&quot;: &quot;HIGH__1447.009&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;HIGH__1453.203&quot;: {
+      &quot;label&quot;: &quot;HIGH__1453.203&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;HIGH__1459.398&quot;: {
+      &quot;label&quot;: &quot;HIGH__1459.398&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;HIGH__1465.592&quot;: {
+      &quot;label&quot;: &quot;HIGH__1465.592&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;HIGH__1471.786&quot;: {
+      &quot;label&quot;: &quot;HIGH__1471.786&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;HIGH__1477.981&quot;: {
+      &quot;label&quot;: &quot;HIGH__1477.981&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;HIGH__1484.175&quot;: {
+      &quot;label&quot;: &quot;HIGH__1484.175&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;HIGH__1490.369&quot;: {
+      &quot;label&quot;: &quot;HIGH__1490.369&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;HIGH__1496.564&quot;: {
+      &quot;label&quot;: &quot;HIGH__1496.564&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;HIGH__1502.758&quot;: {
+      &quot;label&quot;: &quot;HIGH__1502.758&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;HIGH__1508.952&quot;: {
+      &quot;label&quot;: &quot;HIGH__1508.952&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;HIGH__1515.147&quot;: {
+      &quot;label&quot;: &quot;HIGH__1515.147&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;HIGH__1521.341&quot;: {
+      &quot;label&quot;: &quot;HIGH__1521.341&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;HIGH__1527.535&quot;: {
+      &quot;label&quot;: &quot;HIGH__1527.535&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;HIGH__1533.73&quot;: {
+      &quot;label&quot;: &quot;HIGH__1533.73&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;HIGH__1539.924&quot;: {
+      &quot;label&quot;: &quot;HIGH__1539.924&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;HIGH__1546.119&quot;: {
+      &quot;label&quot;: &quot;HIGH__1546.119&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;HIGH__1552.313&quot;: {
+      &quot;label&quot;: &quot;HIGH__1552.313&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;HIGH__1558.507&quot;: {
+      &quot;label&quot;: &quot;HIGH__1558.507&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;HIGH__1564.702&quot;: {
+      &quot;label&quot;: &quot;HIGH__1564.702&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;HIGH__1570.896&quot;: {
+      &quot;label&quot;: &quot;HIGH__1570.896&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;HIGH__1577.09&quot;: {
+      &quot;label&quot;: &quot;HIGH__1577.09&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;HIGH__1583.285&quot;: {
+      &quot;label&quot;: &quot;HIGH__1583.285&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;HIGH__1589.479&quot;: {
+      &quot;label&quot;: &quot;HIGH__1589.479&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;HIGH__1595.673&quot;: {
+      &quot;label&quot;: &quot;HIGH__1595.673&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;HIGH__1601.868&quot;: {
+      &quot;label&quot;: &quot;HIGH__1601.868&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;HIGH__1608.062&quot;: {
+      &quot;label&quot;: &quot;HIGH__1608.062&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;HIGH__1614.256&quot;: {
+      &quot;label&quot;: &quot;HIGH__1614.256&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;HIGH__1620.451&quot;: {
+      &quot;label&quot;: &quot;HIGH__1620.451&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;HIGH__1626.645&quot;: {
+      &quot;label&quot;: &quot;HIGH__1626.645&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;HIGH__1632.839&quot;: {
+      &quot;label&quot;: &quot;HIGH__1632.839&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;HIGH__1639.034&quot;: {
+      &quot;label&quot;: &quot;HIGH__1639.034&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;HIGH__1645.228&quot;: {
+      &quot;label&quot;: &quot;HIGH__1645.228&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;HIGH__1651.423&quot;: {
+      &quot;label&quot;: &quot;HIGH__1651.423&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;HIGH__1657.617&quot;: {
+      &quot;label&quot;: &quot;HIGH__1657.617&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;HIGH__1663.811&quot;: {
+      &quot;label&quot;: &quot;HIGH__1663.811&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;HIGH__1670.006&quot;: {
+      &quot;label&quot;: &quot;HIGH__1670.006&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    },
+    &quot;HIGH__1676.2&quot;: {
+      &quot;label&quot;: &quot;HIGH__1676.2&quot;,
+      &quot;unit&quot;: &quot;not provided&quot;
+    }
+  },
+  &quot;provenance&quot;: {
+    &quot;kind&quot;: &quot;bundled_example&quot;,
+    &quot;example&quot;: &quot;temperature_bands.csv&quot;,
+    &quot;original_source&quot;: {
+      &quot;id&quot;: &quot;D02&quot;,
+      &quot;repository_id&quot;: &quot;4p63x5r852&quot;,
+      &quot;version&quot;: 1,
+      &quot;title&quot;: &quot;Dataset on the Impact of Acquisition Temperature Variations on Quantitation Models of a Miniaturized NIR Spectrometer: A Platform for Calibration Transfer&quot;,
+      &quot;creators&quot;: [
+        &quot;Ahmed Ramadan&quot;,
+        &quot;Nicolas Abatzoglou&quot;,
+        &quot;Ryan Gosselin&quot;
+      ],
+      &quot;doi&quot;: &quot;10.17632/4p63x5r852.1&quot;,
+      &quot;source_url&quot;: &quot;https://data.mendeley.com/datasets/4p63x5r852/1&quot;,
+      &quot;license&quot;: &quot;CC-BY-4.0&quot;,
+      &quot;license_url&quot;: &quot;https://creativecommons.org/licenses/by/4.0/&quot;,
+      &quot;checked_on&quot;: &quot;2026-09-07&quot;,
+      &quot;raw_data_included_in_delivery&quot;: false,
+      &quot;downloads&quot;: [
+        {
+          &quot;file&quot;: &quot;Temperature_Variation_Dataset.csv&quot;,
+          &quot;url&quot;: &quot;https://data.mendeley.com/public-files/datasets/4p63x5r852/files/9b405bcb-54f6-45d9-a73f-760b88b0fd18/file_downloaded&quot;,
+          &quot;bytes&quot;: 4003839,
+          &quot;sha256&quot;: &quot;4cd548a6b0b8f29bda414592b19f4ea87c1e73527d5e042fcc57fde95e4862ba&quot;
+        }
+      ],
+      &quot;processed_examples_included&quot;: true
+    },
+    &quot;transformations&quot;: &quot;3141 source spectra averaged within formulation/domain; nine X1 formulation means retained. Fixed split at 1300 nm creates bands of one device, not independent instruments.&quot;,
+    &quot;column_metadata&quot;: {
+      &quot;target&quot;: {
+        &quot;label&quot;: &quot;Acetaminophen content&quot;,
+        &quot;unit&quot;: &quot;% w/w&quot;
+      }
+    },
+    &quot;prepared_csv_sha256&quot;: &quot;bde0af9e377c3510ffa43332437ac6c189367ecab04f37c6f51c234e0ff31c2f&quot;,
+    &quot;code_license&quot;: &quot;MIT&quot;,
+    &quot;data_license&quot;: &quot;CC-BY-4.0&quot;
+  },
+  &quot;input_hash_definition&quot;: &quot;SHA256 of parsed table serialized as canonical CSV; not original file bytes&quot;,
+  &quot;n_input_rows&quot;: 9,
+  &quot;computation_status&quot;: &quot;completed&quot;,
+  &quot;evidence_status&quot;: &quot;complete&quot;,
+  &quot;deterministic_protocol&quot;: {
+    &quot;outer_max_folds&quot;: 5,
+    &quot;inner_max_folds&quot;: 3,
+    &quot;pls_components&quot;: [
+      1,
+      2,
+      3
+    ]
+  },
+  &quot;input_preparation&quot;: {
+    &quot;generated_row_id&quot;: null,
+    &quot;row_id_meaning&quot;: &quot;Source observation ID&quot;,
+    &quot;import&quot;: {
+      &quot;worksheet&quot;: null,
+      &quot;header_row&quot;: 1,
+      &quot;separator&quot;: &quot;,&quot;,
+      &quot;encoding&quot;: &quot;utf-8-sig&quot;,
+      &quot;notices&quot;: [],
+      &quot;decimal&quot;: &quot;.&quot;,
+      &quot;missing_tokens&quot;: [],
+      &quot;column_mapping&quot;: [
+        {
+          &quot;position&quot;: 1,
+          &quot;source_header&quot;: &quot;sample_id&quot;,
+          &quot;analysis_header&quot;: &quot;sample_id&quot;
+        },
+        {
+          &quot;position&quot;: 2,
+          &quot;source_header&quot;: &quot;group&quot;,
+          &quot;analysis_header&quot;: &quot;group&quot;
+        },
+        {
+          &quot;position&quot;: 3,
+          &quot;source_header&quot;: &quot;target&quot;,
+          &quot;analysis_header&quot;: &quot;target&quot;
+        },
+        {
+          &quot;position&quot;: 4,
+          &quot;source_header&quot;: &quot;LOW__908.1&quot;,
+          &quot;analysis_header&quot;: &quot;LOW__908.1&quot;
+        },
+        {
+          &quot;position&quot;: 5,
+          &quot;source_header&quot;: &quot;LOW__914.294&quot;,
+          &quot;analysis_header&quot;: &quot;LOW__914.294&quot;
+        },
+        {
+          &quot;position&quot;: 6,
+          &quot;source_header&quot;: &quot;LOW__920.489&quot;,
+          &quot;analysis_header&quot;: &quot;LOW__920.489&quot;
+        },
+        {
+          &quot;position&quot;: 7,
+          &quot;source_header&quot;: &quot;LOW__926.683&quot;,
+          &quot;analysis_header&quot;: &quot;LOW__926.683&quot;
+        },
+        {
+          &quot;position&quot;: 8,
+          &quot;source_header&quot;: &quot;LOW__932.877&quot;,
+          &quot;analysis_header&quot;: &quot;LOW__932.877&quot;
+        },
+        {
+          &quot;position&quot;: 9,
+          &quot;source_header&quot;: &quot;LOW__939.072&quot;,
+          &quot;analysis_header&quot;: &quot;LOW__939.072&quot;
+        },
+        {
+          &quot;position&quot;: 10,
+          &quot;source_header&quot;: &quot;LOW__945.266&quot;,
+          &quot;analysis_header&quot;: &quot;LOW__945.266&quot;
+        },
+        {
+          &quot;position&quot;: 11,
+          &quot;source_header&quot;: &quot;LOW__951.46&quot;,
+          &quot;analysis_header&quot;: &quot;LOW__951.46&quot;
+        },
+        {
+          &quot;position&quot;: 12,
+          &quot;source_header&quot;: &quot;LOW__957.655&quot;,
+          &quot;analysis_header&quot;: &quot;LOW__957.655&quot;
+        },
+        {
+          &quot;position&quot;: 13,
+          &quot;source_header&quot;: &quot;LOW__963.849&quot;,
+          &quot;analysis_header&quot;: &quot;LOW__963.849&quot;
+        },
+        {
+          &quot;position&quot;: 14,
+          &quot;source_header&quot;: &quot;LOW__970.044&quot;,
+          &quot;analysis_header&quot;: &quot;LOW__970.044&quot;
+        },
+        {
+          &quot;position&quot;: 15,
+          &quot;source_header&quot;: &quot;LOW__976.238&quot;,
+          &quot;analysis_header&quot;: &quot;LOW__976.238&quot;
+        },
+        {
+          &quot;position&quot;: 16,
+          &quot;source_header&quot;: &quot;LOW__982.432&quot;,
+          &quot;analysis_header&quot;: &quot;LOW__982.432&quot;
+        },
+        {
+          &quot;position&quot;: 17,
+          &quot;source_header&quot;: &quot;LOW__988.627&quot;,
+          &quot;analysis_header&quot;: &quot;LOW__988.627&quot;
+        },
+        {
+          &quot;position&quot;: 18,
+          &quot;source_header&quot;: &quot;LOW__994.821&quot;,
+          &quot;analysis_header&quot;: &quot;LOW__994.821&quot;
+        },
+        {
+          &quot;position&quot;: 19,
+          &quot;source_header&quot;: &quot;LOW__1001.015&quot;,
+          &quot;analysis_header&quot;: &quot;LOW__1001.015&quot;
+        },
+        {
+          &quot;position&quot;: 20,
+          &quot;source_header&quot;: &quot;LOW__1007.21&quot;,
+          &quot;analysis_header&quot;: &quot;LOW__1007.21&quot;
+        },
+        {
+          &quot;position&quot;: 21,
+          &quot;source_header&quot;: &quot;LOW__1013.404&quot;,
+          &quot;analysis_header&quot;: &quot;LOW__1013.404&quot;
+        },
+        {
+          &quot;position&quot;: 22,
+          &quot;source_header&quot;: &quot;LOW__1019.598&quot;,
+          &quot;analysis_header&quot;: &quot;LOW__1019.598&quot;
+        },
+        {
+          &quot;position&quot;: 23,
+          &quot;source_header&quot;: &quot;LOW__1025.793&quot;,
+          &quot;analysis_header&quot;: &quot;LOW__1025.793&quot;
+        },
+        {
+          &quot;position&quot;: 24,
+          &quot;source_header&quot;: &quot;LOW__1031.987&quot;,
+          &quot;analysis_header&quot;: &quot;LOW__1031.987&quot;
+        },
+        {
+          &quot;position&quot;: 25,
+          &quot;source_header&quot;: &quot;LOW__1038.181&quot;,
+          &quot;analysis_header&quot;: &quot;LOW__1038.181&quot;
+        },
+        {
+          &quot;position&quot;: 26,
+          &quot;source_header&quot;: &quot;LOW__1044.376&quot;,
+          &quot;analysis_header&quot;: &quot;LOW__1044.376&quot;
+        },
+        {
+          &quot;position&quot;: 27,
+          &quot;source_header&quot;: &quot;LOW__1050.57&quot;,
+          &quot;analysis_header&quot;: &quot;LOW__1050.57&quot;
+        },
+        {
+          &quot;position&quot;: 28,
+          &quot;source_header&quot;: &quot;LOW__1056.764&quot;,
+          &quot;analysis_header&quot;: &quot;LOW__1056.764&quot;
+        },
+        {
+          &quot;position&quot;: 29,
+          &quot;source_header&quot;: &quot;LOW__1062.959&quot;,
+          &quot;analysis_header&quot;: &quot;LOW__1062.959&quot;
+        },
+        {
+          &quot;position&quot;: 30,
+          &quot;source_header&quot;: &quot;LOW__1069.153&quot;,
+          &quot;analysis_header&quot;: &quot;LOW__1069.153&quot;
+        },
+        {
+          &quot;position&quot;: 31,
+          &quot;source_header&quot;: &quot;LOW__1075.348&quot;,
+          &quot;analysis_header&quot;: &quot;LOW__1075.348&quot;
+        },
+        {
+          &quot;position&quot;: 32,
+          &quot;source_header&quot;: &quot;LOW__1081.542&quot;,
+          &quot;analysis_header&quot;: &quot;LOW__1081.542&quot;
+        },
+        {
+          &quot;position&quot;: 33,
+          &quot;source_header&quot;: &quot;LOW__1087.736&quot;,
+          &quot;analysis_header&quot;: &quot;LOW__1087.736&quot;
+        },
+        {
+          &quot;position&quot;: 34,
+          &quot;source_header&quot;: &quot;LOW__1093.931&quot;,
+          &quot;analysis_header&quot;: &quot;LOW__1093.931&quot;
+        },
+        {
+          &quot;position&quot;: 35,
+          &quot;source_header&quot;: &quot;LOW__1100.125&quot;,
+          &quot;analysis_header&quot;: &quot;LOW__1100.125&quot;
+        },
+        {
+          &quot;position&quot;: 36,
+          &quot;source_header&quot;: &quot;LOW__1106.319&quot;,
+          &quot;analysis_header&quot;: &quot;LOW__1106.319&quot;
+        },
+        {
+          &quot;position&quot;: 37,
+          &quot;source_header&quot;: &quot;LOW__1112.514&quot;,
+          &quot;analysis_header&quot;: &quot;LOW__1112.514&quot;
+        },
+        {
+          &quot;position&quot;: 38,
+          &quot;source_header&quot;: &quot;LOW__1118.708&quot;,
+          &quot;analysis_header&quot;: &quot;LOW__1118.708&quot;
+        },
+        {
+          &quot;position&quot;: 39,
+          &quot;source_header&quot;: &quot;LOW__1124.902&quot;,
+          &quot;analysis_header&quot;: &quot;LOW__1124.902&quot;
+        },
+        {
+          &quot;position&quot;: 40,
+          &quot;source_header&quot;: &quot;LOW__1131.097&quot;,
+          &quot;analysis_header&quot;: &quot;LOW__1131.097&quot;
+        },
+        {
+          &quot;position&quot;: 41,
+          &quot;source_header&quot;: &quot;LOW__1137.291&quot;,
+          &quot;analysis_header&quot;: &quot;LOW__1137.291&quot;
+        },
+        {
+          &quot;position&quot;: 42,
+          &quot;source_header&quot;: &quot;LOW__1143.485&quot;,
+          &quot;analysis_header&quot;: &quot;LOW__1143.485&quot;
+        },
+        {
+          &quot;position&quot;: 43,
+          &quot;source_header&quot;: &quot;LOW__1149.68&quot;,
+          &quot;analysis_header&quot;: &quot;LOW__1149.68&quot;
+        },
+        {
+          &quot;position&quot;: 44,
+          &quot;source_header&quot;: &quot;LOW__1155.874&quot;,
+          &quot;analysis_header&quot;: &quot;LOW__1155.874&quot;
+        },
+        {
+          &quot;position&quot;: 45,
+          &quot;source_header&quot;: &quot;LOW__1162.069&quot;,
+          &quot;analysis_header&quot;: &quot;LOW__1162.069&quot;
+        },
+        {
+          &quot;position&quot;: 46,
+          &quot;source_header&quot;: &quot;LOW__1168.263&quot;,
+          &quot;analysis_header&quot;: &quot;LOW__1168.263&quot;
+        },
+        {
+          &quot;position&quot;: 47,
+          &quot;source_header&quot;: &quot;LOW__1174.457&quot;,
+          &quot;analysis_header&quot;: &quot;LOW__1174.457&quot;
+        },
+        {
+          &quot;position&quot;: 48,
+          &quot;source_header&quot;: &quot;LOW__1180.652&quot;,
+          &quot;analysis_header&quot;: &quot;LOW__1180.652&quot;
+        },
+        {
+          &quot;position&quot;: 49,
+          &quot;source_header&quot;: &quot;LOW__1186.846&quot;,
+          &quot;analysis_header&quot;: &quot;LOW__1186.846&quot;
+        },
+        {
+          &quot;position&quot;: 50,
+          &quot;source_header&quot;: &quot;LOW__1193.04&quot;,
+          &quot;analysis_header&quot;: &quot;LOW__1193.04&quot;
+        },
+        {
+          &quot;position&quot;: 51,
+          &quot;source_header&quot;: &quot;LOW__1199.235&quot;,
+          &quot;analysis_header&quot;: &quot;LOW__1199.235&quot;
+        },
+        {
+          &quot;position&quot;: 52,
+          &quot;source_header&quot;: &quot;LOW__1205.429&quot;,
+          &quot;analysis_header&quot;: &quot;LOW__1205.429&quot;
+        },
+        {
+          &quot;position&quot;: 53,
+          &quot;source_header&quot;: &quot;LOW__1211.623&quot;,
+          &quot;analysis_header&quot;: &quot;LOW__1211.623&quot;
+        },
+        {
+          &quot;position&quot;: 54,
+          &quot;source_header&quot;: &quot;LOW__1217.818&quot;,
+          &quot;analysis_header&quot;: &quot;LOW__1217.818&quot;
+        },
+        {
+          &quot;position&quot;: 55,
+          &quot;source_header&quot;: &quot;LOW__1224.012&quot;,
+          &quot;analysis_header&quot;: &quot;LOW__1224.012&quot;
+        },
+        {
+          &quot;position&quot;: 56,
+          &quot;source_header&quot;: &quot;LOW__1230.206&quot;,
+          &quot;analysis_header&quot;: &quot;LOW__1230.206&quot;
+        },
+        {
+          &quot;position&quot;: 57,
+          &quot;source_header&quot;: &quot;LOW__1236.401&quot;,
+          &quot;analysis_header&quot;: &quot;LOW__1236.401&quot;
+        },
+        {
+          &quot;position&quot;: 58,
+          &quot;source_header&quot;: &quot;LOW__1242.595&quot;,
+          &quot;analysis_header&quot;: &quot;LOW__1242.595&quot;
+        },
+        {
+          &quot;position&quot;: 59,
+          &quot;source_header&quot;: &quot;LOW__1248.789&quot;,
+          &quot;analysis_header&quot;: &quot;LOW__1248.789&quot;
+        },
+        {
+          &quot;position&quot;: 60,
+          &quot;source_header&quot;: &quot;LOW__1254.984&quot;,
+          &quot;analysis_header&quot;: &quot;LOW__1254.984&quot;
+        },
+        {
+          &quot;position&quot;: 61,
+          &quot;source_header&quot;: &quot;LOW__1261.178&quot;,
+          &quot;analysis_header&quot;: &quot;LOW__1261.178&quot;
+        },
+        {
+          &quot;position&quot;: 62,
+          &quot;source_header&quot;: &quot;LOW__1267.373&quot;,
+          &quot;analysis_header&quot;: &quot;LOW__1267.373&quot;
+        },
+        {
+          &quot;position&quot;: 63,
+          &quot;source_header&quot;: &quot;LOW__1273.567&quot;,
+          &quot;analysis_header&quot;: &quot;LOW__1273.567&quot;
+        },
+        {
+          &quot;position&quot;: 64,
+          &quot;source_header&quot;: &quot;LOW__1279.761&quot;,
+          &quot;analysis_header&quot;: &quot;LOW__1279.761&quot;
+        },
+        {
+          &quot;position&quot;: 65,
+          &quot;source_header&quot;: &quot;LOW__1285.956&quot;,
+          &quot;analysis_header&quot;: &quot;LOW__1285.956&quot;
+        },
+        {
+          &quot;position&quot;: 66,
+          &quot;source_header&quot;: &quot;LOW__1292.15&quot;,
+          &quot;analysis_header&quot;: &quot;LOW__1292.15&quot;
+        },
+        {
+          &quot;position&quot;: 67,
+          &quot;source_header&quot;: &quot;LOW__1298.344&quot;,
+          &quot;analysis_header&quot;: &quot;LOW__1298.344&quot;
+        },
+        {
+          &quot;position&quot;: 68,
+          &quot;source_header&quot;: &quot;HIGH__1304.539&quot;,
+          &quot;analysis_header&quot;: &quot;HIGH__1304.539&quot;
+        },
+        {
+          &quot;position&quot;: 69,
+          &quot;source_header&quot;: &quot;HIGH__1310.733&quot;,
+          &quot;analysis_header&quot;: &quot;HIGH__1310.733&quot;
+        },
+        {
+          &quot;position&quot;: 70,
+          &quot;source_header&quot;: &quot;HIGH__1316.927&quot;,
+          &quot;analysis_header&quot;: &quot;HIGH__1316.927&quot;
+        },
+        {
+          &quot;position&quot;: 71,
+          &quot;source_header&quot;: &quot;HIGH__1323.122&quot;,
+          &quot;analysis_header&quot;: &quot;HIGH__1323.122&quot;
+        },
+        {
+          &quot;position&quot;: 72,
+          &quot;source_header&quot;: &quot;HIGH__1329.316&quot;,
+          &quot;analysis_header&quot;: &quot;HIGH__1329.316&quot;
+        },
+        {
+          &quot;position&quot;: 73,
+          &quot;source_header&quot;: &quot;HIGH__1335.51&quot;,
+          &quot;analysis_header&quot;: &quot;HIGH__1335.51&quot;
+        },
+        {
+          &quot;position&quot;: 74,
+          &quot;source_header&quot;: &quot;HIGH__1341.705&quot;,
+          &quot;analysis_header&quot;: &quot;HIGH__1341.705&quot;
+        },
+        {
+          &quot;position&quot;: 75,
+          &quot;source_header&quot;: &quot;HIGH__1347.899&quot;,
+          &quot;analysis_header&quot;: &quot;HIGH__1347.899&quot;
+        },
+        {
+          &quot;position&quot;: 76,
+          &quot;source_header&quot;: &quot;HIGH__1354.094&quot;,
+          &quot;analysis_header&quot;: &quot;HIGH__1354.094&quot;
+        },
+        {
+          &quot;position&quot;: 77,
+          &quot;source_header&quot;: &quot;HIGH__1360.288&quot;,
+          &quot;analysis_header&quot;: &quot;HIGH__1360.288&quot;
+        },
+        {
+          &quot;position&quot;: 78,
+          &quot;source_header&quot;: &quot;HIGH__1366.482&quot;,
+          &quot;analysis_header&quot;: &quot;HIGH__1366.482&quot;
+        },
+        {
+          &quot;position&quot;: 79,
+          &quot;source_header&quot;: &quot;HIGH__1372.677&quot;,
+          &quot;analysis_header&quot;: &quot;HIGH__1372.677&quot;
+        },
+        {
+          &quot;position&quot;: 80,
+          &quot;source_header&quot;: &quot;HIGH__1378.871&quot;,
+          &quot;analysis_header&quot;: &quot;HIGH__1378.871&quot;
+        },
+        {
+          &quot;position&quot;: 81,
+          &quot;source_header&quot;: &quot;HIGH__1385.065&quot;,
+          &quot;analysis_header&quot;: &quot;HIGH__1385.065&quot;
+        },
+        {
+          &quot;position&quot;: 82,
+          &quot;source_header&quot;: &quot;HIGH__1391.26&quot;,
+          &quot;analysis_header&quot;: &quot;HIGH__1391.26&quot;
+        },
+        {
+          &quot;position&quot;: 83,
+          &quot;source_header&quot;: &quot;HIGH__1397.454&quot;,
+          &quot;analysis_header&quot;: &quot;HIGH__1397.454&quot;
+        },
+        {
+          &quot;position&quot;: 84,
+          &quot;source_header&quot;: &quot;HIGH__1403.648&quot;,
+          &quot;analysis_header&quot;: &quot;HIGH__1403.648&quot;
+        },
+        {
+          &quot;position&quot;: 85,
+          &quot;source_header&quot;: &quot;HIGH__1409.843&quot;,
+          &quot;analysis_header&quot;: &quot;HIGH__1409.843&quot;
+        },
+        {
+          &quot;position&quot;: 86,
+          &quot;source_header&quot;: &quot;HIGH__1416.037&quot;,
+          &quot;analysis_header&quot;: &quot;HIGH__1416.037&quot;
+        },
+        {
+          &quot;position&quot;: 87,
+          &quot;source_header&quot;: &quot;HIGH__1422.231&quot;,
+          &quot;analysis_header&quot;: &quot;HIGH__1422.231&quot;
+        },
+        {
+          &quot;position&quot;: 88,
+          &quot;source_header&quot;: &quot;HIGH__1428.426&quot;,
+          &quot;analysis_header&quot;: &quot;HIGH__1428.426&quot;
+        },
+        {
+          &quot;position&quot;: 89,
+          &quot;source_header&quot;: &quot;HIGH__1434.62&quot;,
+          &quot;analysis_header&quot;: &quot;HIGH__1434.62&quot;
+        },
+        {
+          &quot;position&quot;: 90,
+          &quot;source_header&quot;: &quot;HIGH__1440.814&quot;,
+          &quot;analysis_header&quot;: &quot;HIGH__1440.814&quot;
+        },
+        {
+          &quot;position&quot;: 91,
+          &quot;source_header&quot;: &quot;HIGH__1447.009&quot;,
+          &quot;analysis_header&quot;: &quot;HIGH__1447.009&quot;
+        },
+        {
+          &quot;position&quot;: 92,
+          &quot;source_header&quot;: &quot;HIGH__1453.203&quot;,
+          &quot;analysis_header&quot;: &quot;HIGH__1453.203&quot;
+        },
+        {
+          &quot;position&quot;: 93,
+          &quot;source_header&quot;: &quot;HIGH__1459.398&quot;,
+          &quot;analysis_header&quot;: &quot;HIGH__1459.398&quot;
+        },
+        {
+          &quot;position&quot;: 94,
+          &quot;source_header&quot;: &quot;HIGH__1465.592&quot;,
+          &quot;analysis_header&quot;: &quot;HIGH__1465.592&quot;
+        },
+        {
+          &quot;position&quot;: 95,
+          &quot;source_header&quot;: &quot;HIGH__1471.786&quot;,
+          &quot;analysis_header&quot;: &quot;HIGH__1471.786&quot;
+        },
+        {
+          &quot;position&quot;: 96,
+          &quot;source_header&quot;: &quot;HIGH__1477.981&quot;,
+          &quot;analysis_header&quot;: &quot;HIGH__1477.981&quot;
+        },
+        {
+          &quot;position&quot;: 97,
+          &quot;source_header&quot;: &quot;HIGH__1484.175&quot;,
+          &quot;analysis_header&quot;: &quot;HIGH__1484.175&quot;
+        },
+        {
+          &quot;position&quot;: 98,
+          &quot;source_header&quot;: &quot;HIGH__1490.369&quot;,
+          &quot;analysis_header&quot;: &quot;HIGH__1490.369&quot;
+        },
+        {
+          &quot;position&quot;: 99,
+          &quot;source_header&quot;: &quot;HIGH__1496.564&quot;,
+          &quot;analysis_header&quot;: &quot;HIGH__1496.564&quot;
+        },
+        {
+          &quot;position&quot;: 100,
+          &quot;source_header&quot;: &quot;HIGH__1502.758&quot;,
+          &quot;analysis_header&quot;: &quot;HIGH__1502.758&quot;
+        },
+        {
+          &quot;position&quot;: 101,
+          &quot;source_header&quot;: &quot;HIGH__1508.952&quot;,
+          &quot;analysis_header&quot;: &quot;HIGH__1508.952&quot;
+        },
+        {
+          &quot;position&quot;: 102,
+          &quot;source_header&quot;: &quot;HIGH__1515.147&quot;,
+          &quot;analysis_header&quot;: &quot;HIGH__1515.147&quot;
+        },
+        {
+          &quot;position&quot;: 103,
+          &quot;source_header&quot;: &quot;HIGH__1521.341&quot;,
+          &quot;analysis_header&quot;: &quot;HIGH__1521.341&quot;
+        },
+        {
+          &quot;position&quot;: 104,
+          &quot;source_header&quot;: &quot;HIGH__1527.535&quot;,
+          &quot;analysis_header&quot;: &quot;HIGH__1527.535&quot;
+        },
+        {
+          &quot;position&quot;: 105,
+          &quot;source_header&quot;: &quot;HIGH__1533.73&quot;,
+          &quot;analysis_header&quot;: &quot;HIGH__1533.73&quot;
+        },
+        {
+          &quot;position&quot;: 106,
+          &quot;source_header&quot;: &quot;HIGH__1539.924&quot;,
+          &quot;analysis_header&quot;: &quot;HIGH__1539.924&quot;
+        },
+        {
+          &quot;position&quot;: 107,
+          &quot;source_header&quot;: &quot;HIGH__1546.119&quot;,
+          &quot;analysis_header&quot;: &quot;HIGH__1546.119&quot;
+        },
+        {
+          &quot;position&quot;: 108,
+          &quot;source_header&quot;: &quot;HIGH__1552.313&quot;,
+          &quot;analysis_header&quot;: &quot;HIGH__1552.313&quot;
+        },
+        {
+          &quot;position&quot;: 109,
+          &quot;source_header&quot;: &quot;HIGH__1558.507&quot;,
+          &quot;analysis_header&quot;: &quot;HIGH__1558.507&quot;
+        },
+        {
+          &quot;position&quot;: 110,
+          &quot;source_header&quot;: &quot;HIGH__1564.702&quot;,
+          &quot;analysis_header&quot;: &quot;HIGH__1564.702&quot;
+        },
+        {
+          &quot;position&quot;: 111,
+          &quot;source_header&quot;: &quot;HIGH__1570.896&quot;,
+          &quot;analysis_header&quot;: &quot;HIGH__1570.896&quot;
+        },
+        {
+          &quot;position&quot;: 112,
+          &quot;source_header&quot;: &quot;HIGH__1577.09&quot;,
+          &quot;analysis_header&quot;: &quot;HIGH__1577.09&quot;
+        },
+        {
+          &quot;position&quot;: 113,
+          &quot;source_header&quot;: &quot;HIGH__1583.285&quot;,
+          &quot;analysis_header&quot;: &quot;HIGH__1583.285&quot;
+        },
+        {
+          &quot;position&quot;: 114,
+          &quot;source_header&quot;: &quot;HIGH__1589.479&quot;,
+          &quot;analysis_header&quot;: &quot;HIGH__1589.479&quot;
+        },
+        {
+          &quot;position&quot;: 115,
+          &quot;source_header&quot;: &quot;HIGH__1595.673&quot;,
+          &quot;analysis_header&quot;: &quot;HIGH__1595.673&quot;
+        },
+        {
+          &quot;position&quot;: 116,
+          &quot;source_header&quot;: &quot;HIGH__1601.868&quot;,
+          &quot;analysis_header&quot;: &quot;HIGH__1601.868&quot;
+        },
+        {
+          &quot;position&quot;: 117,
+          &quot;source_header&quot;: &quot;HIGH__1608.062&quot;,
+          &quot;analysis_header&quot;: &quot;HIGH__1608.062&quot;
+        },
+        {
+          &quot;position&quot;: 118,
+          &quot;source_header&quot;: &quot;HIGH__1614.256&quot;,
+          &quot;analysis_header&quot;: &quot;HIGH__1614.256&quot;
+        },
+        {
+          &quot;position&quot;: 119,
+          &quot;source_header&quot;: &quot;HIGH__1620.451&quot;,
+          &quot;analysis_header&quot;: &quot;HIGH__1620.451&quot;
+        },
+        {
+          &quot;position&quot;: 120,
+          &quot;source_header&quot;: &quot;HIGH__1626.645&quot;,
+          &quot;analysis_header&quot;: &quot;HIGH__1626.645&quot;
+        },
+        {
+          &quot;position&quot;: 121,
+          &quot;source_header&quot;: &quot;HIGH__1632.839&quot;,
+          &quot;analysis_header&quot;: &quot;HIGH__1632.839&quot;
+        },
+        {
+          &quot;position&quot;: 122,
+          &quot;source_header&quot;: &quot;HIGH__1639.034&quot;,
+          &quot;analysis_header&quot;: &quot;HIGH__1639.034&quot;
+        },
+        {
+          &quot;position&quot;: 123,
+          &quot;source_header&quot;: &quot;HIGH__1645.228&quot;,
+          &quot;analysis_header&quot;: &quot;HIGH__1645.228&quot;
+        },
+        {
+          &quot;position&quot;: 124,
+          &quot;source_header&quot;: &quot;HIGH__1651.423&quot;,
+          &quot;analysis_header&quot;: &quot;HIGH__1651.423&quot;
+        },
+        {
+          &quot;position&quot;: 125,
+          &quot;source_header&quot;: &quot;HIGH__1657.617&quot;,
+          &quot;analysis_header&quot;: &quot;HIGH__1657.617&quot;
+        },
+        {
+          &quot;position&quot;: 126,
+          &quot;source_header&quot;: &quot;HIGH__1663.811&quot;,
+          &quot;analysis_header&quot;: &quot;HIGH__1663.811&quot;
+        },
+        {
+          &quot;position&quot;: 127,
+          &quot;source_header&quot;: &quot;HIGH__1670.006&quot;,
+          &quot;analysis_header&quot;: &quot;HIGH__1670.006&quot;
+        },
+        {
+          &quot;position&quot;: 128,
+          &quot;source_header&quot;: &quot;HIGH__1676.2&quot;,
+          &quot;analysis_header&quot;: &quot;HIGH__1676.2&quot;
+        }
+      ],
+      &quot;max_cells&quot;: 2000000,
+      &quot;max_bytes&quot;: 52428800
+    },
+    &quot;original_parsed_input_sha256&quot;: &quot;31ac4954d1c8c50453a6f1a26bc5f1004bca70a741ec7ec8076bd738a554a398&quot;
+  },
+  &quot;feature_correlation_schema&quot;: {
+    &quot;row_name_column&quot;: &quot;feature&quot;,
+    &quot;measurement_columns&quot;: [
+      &quot;LOW__908.1&quot;,
+      &quot;LOW__914.294&quot;,
+      &quot;LOW__920.489&quot;,
+      &quot;LOW__926.683&quot;,
+      &quot;LOW__932.877&quot;,
+      &quot;LOW__939.072&quot;,
+      &quot;LOW__945.266&quot;,
+      &quot;LOW__951.46&quot;,
+      &quot;LOW__957.655&quot;,
+      &quot;LOW__963.849&quot;,
+      &quot;LOW__970.044&quot;,
+      &quot;LOW__976.238&quot;
+    ],
+    &quot;source_names_preserved&quot;: true
+  },
+  &quot;diagnostics&quot;: [
+    {
+      &quot;table&quot;: &quot;feature_quality&quot;,
+      &quot;question&quot;: &quot;Which measurement columns are incomplete or constant?&quot;,
+      &quot;interpretation&quot;: &quot;Input-only descriptive audit; no feature is selected or removed using these summaries.&quot;,
+      &quot;rows&quot;: 125
+    },
+    {
+      &quot;table&quot;: &quot;feature_correlation_preview&quot;,
+      &quot;question&quot;: &quot;Are measurement features redundant?&quot;,
+      &quot;interpretation&quot;: &quot;Pearson correlations of available row pairs, first 12 selected columns in input order; repeated rows are not independent evidence.&quot;,
+      &quot;rows&quot;: 12
+    },
+    {
+      &quot;table&quot;: &quot;group_diagnostics&quot;,
+      &quot;question&quot;: &quot;Which physical groups have the largest errors?&quot;,
+      &quot;interpretation&quot;: &quot;One summary per method and physical group; group means and within-group RMSE are different quantities. No rows are excluded.&quot;,
+      &quot;rows&quot;: 63
+    },
+    {
+      &quot;table&quot;: &quot;reference_range_diagnostics&quot;,
+      &quot;question&quot;: &quot;Does error vary across the measured response range?&quot;,
+      &quot;interpretation&quot;: &quot;Up to four shared reference-quantile bins, determined after prediction for diagnosis only. Bin counts and group counts are retained; no uncertainty is inferred.&quot;,
+      &quot;rows&quot;: 28
+    },
+    {
+      &quot;table&quot;: &quot;paired_baseline_comparison&quot;,
+      &quot;question&quot;: &quot;Does each method improve on its baseline using exactly the same observations?&quot;,
+      &quot;interpretation&quot;: &quot;Descriptive paired comparisons; each method may have a different intersection. Differences do not supply independent confidence intervals or a global ranking.&quot;,
+      &quot;rows&quot;: 6
+    }
+  ],
+  &quot;capabilities&quot;: [
+    {
+      &quot;capability&quot;: &quot;input_quality&quot;,
+      &quot;available&quot;: true,
+      &quot;level&quot;: &quot;descriptive&quot;,
+      &quot;reason&quot;: &quot;Parsed rows and selected field availability are retained.&quot;
+    },
+    {
+      &quot;capability&quot;: &quot;paired_descriptions&quot;,
+      &quot;available&quot;: true,
+      &quot;level&quot;: &quot;descriptive&quot;,
+      &quot;reason&quot;: &quot;Available finite reference/comparison pairs; no missing reference is invented.&quot;
+    },
+    {
+      &quot;capability&quot;: &quot;fitted_model&quot;,
+      &quot;available&quot;: false,
+      &quot;level&quot;: &quot;fitting&quot;,
+      &quot;reason&quot;: &quot;No estimable requested factor model was fitted.&quot;
+    },
+    {
+      &quot;capability&quot;: &quot;held_out_evaluation&quot;,
+      &quot;available&quot;: true,
+      &quot;level&quot;: &quot;evaluation&quot;,
+      &quot;reason&quot;: &quot;Recorded disjoint training/held-out units; interpret small samples as exploratory.&quot;
+    },
+    {
+      &quot;capability&quot;: &quot;conditional_uncertainty&quot;,
+      &quot;available&quot;: false,
+      &quot;level&quot;: &quot;inference&quot;,
+      &quot;reason&quot;: &quot;Required independence, variance, sample structure or prediction provenance is unavailable.&quot;
+    }
+  ],
+  &quot;evidence_summary&quot;: &quot;Exploratory results; selected uncertainty measures unavailable&quot;,
+  &quot;import_options&quot;: {},
+  &quot;export_config&quot;: {
+    &quot;target&quot;: &quot;target&quot;,
+    &quot;id_col&quot;: &quot;sample_id&quot;,
+    &quot;group_col&quot;: &quot;group&quot;,
+    &quot;block_columns&quot;: {
+      &quot;LOW&quot;: [
+        &quot;LOW__908.1&quot;,
+        &quot;LOW__914.294&quot;,
+        &quot;LOW__920.489&quot;,
+        &quot;LOW__926.683&quot;,
+        &quot;LOW__932.877&quot;,
+        &quot;LOW__939.072&quot;,
+        &quot;LOW__945.266&quot;,
+        &quot;LOW__951.46&quot;,
+        &quot;LOW__957.655&quot;,
+        &quot;LOW__963.849&quot;,
+        &quot;LOW__970.044&quot;,
+        &quot;LOW__976.238&quot;,
+        &quot;LOW__982.432&quot;,
+        &quot;LOW__988.627&quot;,
+        &quot;LOW__994.821&quot;,
+        &quot;LOW__1001.015&quot;,
+        &quot;LOW__1007.21&quot;,
+        &quot;LOW__1013.404&quot;,
+        &quot;LOW__1019.598&quot;,
+        &quot;LOW__1025.793&quot;,
+        &quot;LOW__1031.987&quot;,
+        &quot;LOW__1038.181&quot;,
+        &quot;LOW__1044.376&quot;,
+        &quot;LOW__1050.57&quot;,
+        &quot;LOW__1056.764&quot;,
+        &quot;LOW__1062.959&quot;,
+        &quot;LOW__1069.153&quot;,
+        &quot;LOW__1075.348&quot;,
+        &quot;LOW__1081.542&quot;,
+        &quot;LOW__1087.736&quot;,
+        &quot;LOW__1093.931&quot;,
+        &quot;LOW__1100.125&quot;,
+        &quot;LOW__1106.319&quot;,
+        &quot;LOW__1112.514&quot;,
+        &quot;LOW__1118.708&quot;,
+        &quot;LOW__1124.902&quot;,
+        &quot;LOW__1131.097&quot;,
+        &quot;LOW__1137.291&quot;,
+        &quot;LOW__1143.485&quot;,
+        &quot;LOW__1149.68&quot;,
+        &quot;LOW__1155.874&quot;,
+        &quot;LOW__1162.069&quot;,
+        &quot;LOW__1168.263&quot;,
+        &quot;LOW__1174.457&quot;,
+        &quot;LOW__1180.652&quot;,
+        &quot;LOW__1186.846&quot;,
+        &quot;LOW__1193.04&quot;,
+        &quot;LOW__1199.235&quot;,
+        &quot;LOW__1205.429&quot;,
+        &quot;LOW__1211.623&quot;,
+        &quot;LOW__1217.818&quot;,
+        &quot;LOW__1224.012&quot;,
+        &quot;LOW__1230.206&quot;,
+        &quot;LOW__1236.401&quot;,
+        &quot;LOW__1242.595&quot;,
+        &quot;LOW__1248.789&quot;,
+        &quot;LOW__1254.984&quot;,
+        &quot;LOW__1261.178&quot;,
+        &quot;LOW__1267.373&quot;,
+        &quot;LOW__1273.567&quot;,
+        &quot;LOW__1279.761&quot;,
+        &quot;LOW__1285.956&quot;,
+        &quot;LOW__1292.15&quot;,
+        &quot;LOW__1298.344&quot;
+      ],
+      &quot;HIGH&quot;: [
+        &quot;HIGH__1304.539&quot;,
+        &quot;HIGH__1310.733&quot;,
+        &quot;HIGH__1316.927&quot;,
+        &quot;HIGH__1323.122&quot;,
+        &quot;HIGH__1329.316&quot;,
+        &quot;HIGH__1335.51&quot;,
+        &quot;HIGH__1341.705&quot;,
+        &quot;HIGH__1347.899&quot;,
+        &quot;HIGH__1354.094&quot;,
+        &quot;HIGH__1360.288&quot;,
+        &quot;HIGH__1366.482&quot;,
+        &quot;HIGH__1372.677&quot;,
+        &quot;HIGH__1378.871&quot;,
+        &quot;HIGH__1385.065&quot;,
+        &quot;HIGH__1391.26&quot;,
+        &quot;HIGH__1397.454&quot;,
+        &quot;HIGH__1403.648&quot;,
+        &quot;HIGH__1409.843&quot;,
+        &quot;HIGH__1416.037&quot;,
+        &quot;HIGH__1422.231&quot;,
+        &quot;HIGH__1428.426&quot;,
+        &quot;HIGH__1434.62&quot;,
+        &quot;HIGH__1440.814&quot;,
+        &quot;HIGH__1447.009&quot;,
+        &quot;HIGH__1453.203&quot;,
+        &quot;HIGH__1459.398&quot;,
+        &quot;HIGH__1465.592&quot;,
+        &quot;HIGH__1471.786&quot;,
+        &quot;HIGH__1477.981&quot;,
+        &quot;HIGH__1484.175&quot;,
+        &quot;HIGH__1490.369&quot;,
+        &quot;HIGH__1496.564&quot;,
+        &quot;HIGH__1502.758&quot;,
+        &quot;HIGH__1508.952&quot;,
+        &quot;HIGH__1515.147&quot;,
+        &quot;HIGH__1521.341&quot;,
+        &quot;HIGH__1527.535&quot;,
+        &quot;HIGH__1533.73&quot;,
+        &quot;HIGH__1539.924&quot;,
+        &quot;HIGH__1546.119&quot;,
+        &quot;HIGH__1552.313&quot;,
+        &quot;HIGH__1558.507&quot;,
+        &quot;HIGH__1564.702&quot;,
+        &quot;HIGH__1570.896&quot;,
+        &quot;HIGH__1577.09&quot;,
+        &quot;HIGH__1583.285&quot;,
+        &quot;HIGH__1589.479&quot;,
+        &quot;HIGH__1595.673&quot;,
+        &quot;HIGH__1601.868&quot;,
+        &quot;HIGH__1608.062&quot;,
+        &quot;HIGH__1614.256&quot;,
+        &quot;HIGH__1620.451&quot;,
+        &quot;HIGH__1626.645&quot;,
+        &quot;HIGH__1632.839&quot;,
+        &quot;HIGH__1639.034&quot;,
+        &quot;HIGH__1645.228&quot;,
+        &quot;HIGH__1651.423&quot;,
+        &quot;HIGH__1657.617&quot;,
+        &quot;HIGH__1663.811&quot;,
+        &quot;HIGH__1670.006&quot;,
+        &quot;HIGH__1676.2&quot;
+      ]
+    },
+    &quot;cv_group_col&quot;: null,
+    &quot;column_metadata&quot;: {
+      &quot;target&quot;: {
+        &quot;label&quot;: &quot;Acetaminophen content&quot;,
+        &quot;unit&quot;: &quot;% w/w&quot;
+      }
+    },
+    &quot;input_name&quot;: &quot;temperature_bands.csv&quot;,
+    &quot;provenance&quot;: {
+      &quot;kind&quot;: &quot;bundled_example&quot;,
+      &quot;example&quot;: &quot;temperature_bands.csv&quot;
+    },
+    &quot;import_options&quot;: {}
+  }
+}</pre></html>

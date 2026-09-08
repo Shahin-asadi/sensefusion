@@ -1,0 +1,79 @@
+{
+  "source_doi": "10.17632/g6y69g8gwm.1",
+  "license": "CC-BY-4.0",
+  "creators": [
+    "Francesca Venturini",
+    "Silvan Fluri",
+    "Michael Baumgartner"
+  ],
+  "changes": "240 UV-matched physical vial/ageing-step records. Fixed fluorescence window means; no response-based feature selection. Repeated acquisitions averaged by physical key.",
+  "fluorescence": {
+    "excitation_nm": [
+      340,
+      380,
+      420,
+      460,
+      500,
+      540,
+      580,
+      620
+    ],
+    "emission_centres_nm": [
+      490,
+      550,
+      610,
+      670,
+      730,
+      790
+    ],
+    "window_half_width_nm": 20,
+    "min_points": 5,
+    "masks": "emission > excitation + 20; abs(emission - 2*excitation) > 20",
+    "negative_intensities": "retained",
+    "inner_filter_correction": "not performed; undiluted oils"
+  },
+  "fusion_target": "Controlled thermal ageing duration at 60 C in days; not shelf life or natural age.",
+  "assay_target": "Deposited UV K268 reference; UV features excluded from assay inputs.",
+  "n_independent_oil_groups": 24,
+  "n_rows": 240,
+  "duplicate_audit": [
+    {
+      "id": "AS3_K1",
+      "files": [
+        "Aging Step 3/Fluorescence/20210602_0751_AS3_V2W1Q1K1.csv",
+        "Aging Step 3/Fluorescence/20210602_1612_AS3_V2W1Q1K1.csv"
+      ],
+      "max_feature_range": 21.443004469142863,
+      "action": "arithmetic mean of repeated acquisitions before splitting"
+    },
+    {
+      "id": "AS3_Q1",
+      "files": [
+        "Aging Step 3/Fluorescence/20210602_0751_AS3_V2W1Q1K1.csv",
+        "Aging Step 3/Fluorescence/20210602_1612_AS3_V2W1Q1K1.csv"
+      ],
+      "max_feature_range": 34.74771191857141,
+      "action": "arithmetic mean of repeated acquisitions before splitting"
+    },
+    {
+      "id": "AS3_V2",
+      "files": [
+        "Aging Step 3/Fluorescence/20210602_0751_AS3_V2W1Q1K1.csv",
+        "Aging Step 3/Fluorescence/20210602_1612_AS3_V2W1Q1K1.csv"
+      ],
+      "max_feature_range": 7.519094502857115,
+      "action": "arithmetic mean of repeated acquisitions before splitting"
+    },
+    {
+      "id": "AS3_W1",
+      "files": [
+        "Aging Step 3/Fluorescence/20210602_0751_AS3_V2W1Q1K1.csv",
+        "Aging Step 3/Fluorescence/20210602_1612_AS3_V2W1Q1K1.csv"
+      ],
+      "max_feature_range": 7.590596197857138,
+      "action": "arithmetic mean of repeated acquisitions before splitting"
+    }
+  ],
+  "unmatched_fluorescence_keys_excluded": 480,
+  "source_note": "P21 prints an inconsistent delta-K formula and once says 260 rather than 268 nm. No delta-K is calculated; raw UV headers define wavelengths."
+}

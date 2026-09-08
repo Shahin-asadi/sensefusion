@@ -1,0 +1,7 @@
+﻿model,baseline,paired_rows,paired_groups,method_group_rmse,baseline_group_rmse,delta_group_rmse,interpretation
+early_pls,training_mean,240,24,12.519258567288716,18.1463494951464,-5.627090927857683,negative difference favours the method on this paired subset
+late_equal,training_mean,240,24,8.909112473506218,18.1463494951464,-9.237237021640182,negative difference favours the method on this paired subset
+late_inverse_rmse,training_mean,240,24,8.939826619348267,18.1463494951464,-9.206522875798132,negative difference favours the method on this paired subset
+late_weighted,training_mean,240,24,9.144771745068539,18.1463494951464,-9.00157775007786,negative difference favours the method on this paired subset
+single_FL,training_mean,240,24,10.336418039316001,18.1463494951464,-7.809931455830398,negative difference favours the method on this paired subset
+single_UV,training_mean,240,24,10.956156154984608,18.1463494951464,-7.190193340161791,negative difference favours the method on this paired subset

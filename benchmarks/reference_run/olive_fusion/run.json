@@ -1,0 +1,864 @@
+{
+  "title": "SenseFusion — grouped fusion comparison",
+  "status": "complete",
+  "settings": {
+    "input_sha256": "2aba49c16a51f351fe24e36e80ddfb5a96bff8506b51ce46f165d9951a571019",
+    "target": "target",
+    "id": "sample_id",
+    "group": "group",
+    "blocks": {
+      "FL": [
+        "FL__ex340_em490",
+        "FL__ex340_em550",
+        "FL__ex340_em610",
+        "FL__ex340_em670",
+        "FL__ex340_em730",
+        "FL__ex340_em790",
+        "FL__ex380_em490",
+        "FL__ex380_em550",
+        "FL__ex380_em610",
+        "FL__ex380_em670",
+        "FL__ex380_em730",
+        "FL__ex380_em790",
+        "FL__ex420_em490",
+        "FL__ex420_em550",
+        "FL__ex420_em610",
+        "FL__ex420_em670",
+        "FL__ex420_em730",
+        "FL__ex420_em790",
+        "FL__ex460_em490",
+        "FL__ex460_em550",
+        "FL__ex460_em610",
+        "FL__ex460_em670",
+        "FL__ex460_em730",
+        "FL__ex460_em790",
+        "FL__ex500_em550",
+        "FL__ex500_em610",
+        "FL__ex500_em670",
+        "FL__ex500_em730",
+        "FL__ex500_em790",
+        "FL__ex540_em550",
+        "FL__ex540_em610",
+        "FL__ex540_em670",
+        "FL__ex540_em730",
+        "FL__ex540_em790",
+        "FL__ex580_em610",
+        "FL__ex580_em670",
+        "FL__ex580_em730",
+        "FL__ex580_em790",
+        "FL__ex620_em670",
+        "FL__ex620_em730",
+        "FL__ex620_em790"
+      ],
+      "UV": [
+        "UV__K232",
+        "UV__K264",
+        "UV__K268",
+        "UV__K272"
+      ]
+    },
+    "components": [
+      1,
+      2,
+      3
+    ],
+    "outer_max_folds": 5,
+    "inner_max_folds": 3,
+    "common_comparison": {
+      "n_rows": 240,
+      "n_groups": 24,
+      "methods": [
+        "single_FL",
+        "single_UV",
+        "early_pls",
+        "late_equal",
+        "late_weighted",
+        "late_inverse_rmse",
+        "training_mean"
+      ],
+      "excluded_methods": [],
+      "selection_rule": "Exclude methods without any held-out predictions and fusion when fewer than two single blocks are usable; never select by error.",
+      "status": "available"
+    },
+    "n_rows": 240,
+    "n_labelled": 240,
+    "n_groups": 24,
+    "software_source_sha256": "aa59a799ea948799fe43e53338e1aa41de440f5a707708cca9db12bb389e2fc6",
+    "source_hash_definition": "SHA256 of sorted relative Python paths and file bytes, each terminated by a NUL byte",
+    "application": "sensefusion",
+    "software_version": "0.5.2",
+    "configuration_schema_version": "1.2",
+    "call_parameters": {
+      "target": "target",
+      "id_col": "sample_id",
+      "group_col": "group",
+      "block_columns": {
+        "FL": [
+          "FL__ex340_em490",
+          "FL__ex340_em550",
+          "FL__ex340_em610",
+          "FL__ex340_em670",
+          "FL__ex340_em730",
+          "FL__ex340_em790",
+          "FL__ex380_em490",
+          "FL__ex380_em550",
+          "FL__ex380_em610",
+          "FL__ex380_em670",
+          "FL__ex380_em730",
+          "FL__ex380_em790",
+          "FL__ex420_em490",
+          "FL__ex420_em550",
+          "FL__ex420_em610",
+          "FL__ex420_em670",
+          "FL__ex420_em730",
+          "FL__ex420_em790",
+          "FL__ex460_em490",
+          "FL__ex460_em550",
+          "FL__ex460_em610",
+          "FL__ex460_em670",
+          "FL__ex460_em730",
+          "FL__ex460_em790",
+          "FL__ex500_em550",
+          "FL__ex500_em610",
+          "FL__ex500_em670",
+          "FL__ex500_em730",
+          "FL__ex500_em790",
+          "FL__ex540_em550",
+          "FL__ex540_em610",
+          "FL__ex540_em670",
+          "FL__ex540_em730",
+          "FL__ex540_em790",
+          "FL__ex580_em610",
+          "FL__ex580_em670",
+          "FL__ex580_em730",
+          "FL__ex580_em790",
+          "FL__ex620_em670",
+          "FL__ex620_em730",
+          "FL__ex620_em790"
+        ],
+        "UV": [
+          "UV__K232",
+          "UV__K264",
+          "UV__K268",
+          "UV__K272"
+        ]
+      },
+      "cv_group_col": null,
+      "column_metadata": {
+        "target": {
+          "label": "Accelerated ageing duration at 60 C",
+          "unit": "days"
+        }
+      },
+      "input_name": "olive_fusion.csv",
+      "provenance": {
+        "kind": "bundled_example",
+        "example": "olive_fusion.csv"
+      }
+    },
+    "input_name": "olive_fusion.csv",
+    "columns": {
+      "sample_id": {
+        "label": "sample_id",
+        "unit": "not provided"
+      },
+      "group": {
+        "label": "group",
+        "unit": "not provided"
+      },
+      "target": {
+        "label": "Accelerated ageing duration at 60 C",
+        "unit": "days"
+      },
+      "FL__ex340_em490": {
+        "label": "FL__ex340_em490",
+        "unit": "not provided"
+      },
+      "FL__ex340_em550": {
+        "label": "FL__ex340_em550",
+        "unit": "not provided"
+      },
+      "FL__ex340_em610": {
+        "label": "FL__ex340_em610",
+        "unit": "not provided"
+      },
+      "FL__ex340_em670": {
+        "label": "FL__ex340_em670",
+        "unit": "not provided"
+      },
+      "FL__ex340_em730": {
+        "label": "FL__ex340_em730",
+        "unit": "not provided"
+      },
+      "FL__ex340_em790": {
+        "label": "FL__ex340_em790",
+        "unit": "not provided"
+      },
+      "FL__ex380_em490": {
+        "label": "FL__ex380_em490",
+        "unit": "not provided"
+      },
+      "FL__ex380_em550": {
+        "label": "FL__ex380_em550",
+        "unit": "not provided"
+      },
+      "FL__ex380_em610": {
+        "label": "FL__ex380_em610",
+        "unit": "not provided"
+      },
+      "FL__ex380_em670": {
+        "label": "FL__ex380_em670",
+        "unit": "not provided"
+      },
+      "FL__ex380_em730": {
+        "label": "FL__ex380_em730",
+        "unit": "not provided"
+      },
+      "FL__ex380_em790": {
+        "label": "FL__ex380_em790",
+        "unit": "not provided"
+      },
+      "FL__ex420_em490": {
+        "label": "FL__ex420_em490",
+        "unit": "not provided"
+      },
+      "FL__ex420_em550": {
+        "label": "FL__ex420_em550",
+        "unit": "not provided"
+      },
+      "FL__ex420_em610": {
+        "label": "FL__ex420_em610",
+        "unit": "not provided"
+      },
+      "FL__ex420_em670": {
+        "label": "FL__ex420_em670",
+        "unit": "not provided"
+      },
+      "FL__ex420_em730": {
+        "label": "FL__ex420_em730",
+        "unit": "not provided"
+      },
+      "FL__ex420_em790": {
+        "label": "FL__ex420_em790",
+        "unit": "not provided"
+      },
+      "FL__ex460_em490": {
+        "label": "FL__ex460_em490",
+        "unit": "not provided"
+      },
+      "FL__ex460_em550": {
+        "label": "FL__ex460_em550",
+        "unit": "not provided"
+      },
+      "FL__ex460_em610": {
+        "label": "FL__ex460_em610",
+        "unit": "not provided"
+      },
+      "FL__ex460_em670": {
+        "label": "FL__ex460_em670",
+        "unit": "not provided"
+      },
+      "FL__ex460_em730": {
+        "label": "FL__ex460_em730",
+        "unit": "not provided"
+      },
+      "FL__ex460_em790": {
+        "label": "FL__ex460_em790",
+        "unit": "not provided"
+      },
+      "FL__ex500_em550": {
+        "label": "FL__ex500_em550",
+        "unit": "not provided"
+      },
+      "FL__ex500_em610": {
+        "label": "FL__ex500_em610",
+        "unit": "not provided"
+      },
+      "FL__ex500_em670": {
+        "label": "FL__ex500_em670",
+        "unit": "not provided"
+      },
+      "FL__ex500_em730": {
+        "label": "FL__ex500_em730",
+        "unit": "not provided"
+      },
+      "FL__ex500_em790": {
+        "label": "FL__ex500_em790",
+        "unit": "not provided"
+      },
+      "FL__ex540_em550": {
+        "label": "FL__ex540_em550",
+        "unit": "not provided"
+      },
+      "FL__ex540_em610": {
+        "label": "FL__ex540_em610",
+        "unit": "not provided"
+      },
+      "FL__ex540_em670": {
+        "label": "FL__ex540_em670",
+        "unit": "not provided"
+      },
+      "FL__ex540_em730": {
+        "label": "FL__ex540_em730",
+        "unit": "not provided"
+      },
+      "FL__ex540_em790": {
+        "label": "FL__ex540_em790",
+        "unit": "not provided"
+      },
+      "FL__ex580_em610": {
+        "label": "FL__ex580_em610",
+        "unit": "not provided"
+      },
+      "FL__ex580_em670": {
+        "label": "FL__ex580_em670",
+        "unit": "not provided"
+      },
+      "FL__ex580_em730": {
+        "label": "FL__ex580_em730",
+        "unit": "not provided"
+      },
+      "FL__ex580_em790": {
+        "label": "FL__ex580_em790",
+        "unit": "not provided"
+      },
+      "FL__ex620_em670": {
+        "label": "FL__ex620_em670",
+        "unit": "not provided"
+      },
+      "FL__ex620_em730": {
+        "label": "FL__ex620_em730",
+        "unit": "not provided"
+      },
+      "FL__ex620_em790": {
+        "label": "FL__ex620_em790",
+        "unit": "not provided"
+      },
+      "UV__K232": {
+        "label": "UV__K232",
+        "unit": "not provided"
+      },
+      "UV__K264": {
+        "label": "UV__K264",
+        "unit": "not provided"
+      },
+      "UV__K268": {
+        "label": "UV__K268",
+        "unit": "not provided"
+      },
+      "UV__K272": {
+        "label": "UV__K272",
+        "unit": "not provided"
+      }
+    },
+    "provenance": {
+      "kind": "bundled_example",
+      "example": "olive_fusion.csv",
+      "original_source": {
+        "id": "D04",
+        "repository_id": "g6y69g8gwm",
+        "version": 1,
+        "title": "Dataset of Fluorescence EEM and UV Spectroscopy Data of Olive Oils during Ageing",
+        "creators": [
+          "Francesca Venturini",
+          "Silvan Fluri",
+          "Michael Baumgartner"
+        ],
+        "doi": "10.17632/g6y69g8gwm.1",
+        "source_url": "https://data.mendeley.com/datasets/g6y69g8gwm/1",
+        "license": "CC-BY-4.0",
+        "license_url": "https://creativecommons.org/licenses/by/4.0/",
+        "checked_on": "2026-09-07",
+        "raw_data_included_in_delivery": false,
+        "downloads": [
+          {
+            "file": "Raw_data.zip",
+            "url": "https://data.mendeley.com/public-files/datasets/g6y69g8gwm/files/c25f8bec-54d2-429d-9cfc-b5bebc4ea81a/file_downloaded",
+            "bytes": 52441934,
+            "sha256": "6acdbd0960ed66255e4f1e9b4b6aae224538c988c01dba1d4c8455017c1aff8b"
+          }
+        ],
+        "processed_examples_included": true
+      },
+      "transformations": "Fixed fluorescence windows and deposited UV features paired by physical vial and ageing step; duplicate fluorescence acquisitions averaged; 240 matched records grouped into 24 oils. Reference is ageing duration at 60 C, not shelf life.",
+      "column_metadata": {
+        "target": {
+          "label": "Accelerated ageing duration at 60 C",
+          "unit": "days"
+        }
+      },
+      "prepared_csv_sha256": "3d84456a1622900ee2df87aee59ddfdee345245c710d9985f8880e48ac9543a4",
+      "code_license": "MIT",
+      "data_license": "CC-BY-4.0"
+    },
+    "input_hash_definition": "SHA256 of parsed table serialized as canonical CSV; not original file bytes",
+    "n_input_rows": 240,
+    "computation_status": "completed",
+    "evidence_status": "complete",
+    "deterministic_protocol": {
+      "outer_max_folds": 5,
+      "inner_max_folds": 3,
+      "pls_components": [
+        1,
+        2,
+        3
+      ]
+    },
+    "input_preparation": {
+      "generated_row_id": null,
+      "row_id_meaning": "Source observation ID",
+      "import": {
+        "worksheet": null,
+        "header_row": 1,
+        "separator": ",",
+        "encoding": "utf-8-sig",
+        "notices": [],
+        "decimal": ".",
+        "missing_tokens": [],
+        "column_mapping": [
+          {
+            "position": 1,
+            "source_header": "sample_id",
+            "analysis_header": "sample_id"
+          },
+          {
+            "position": 2,
+            "source_header": "group",
+            "analysis_header": "group"
+          },
+          {
+            "position": 3,
+            "source_header": "target",
+            "analysis_header": "target"
+          },
+          {
+            "position": 4,
+            "source_header": "FL__ex340_em490",
+            "analysis_header": "FL__ex340_em490"
+          },
+          {
+            "position": 5,
+            "source_header": "FL__ex340_em550",
+            "analysis_header": "FL__ex340_em550"
+          },
+          {
+            "position": 6,
+            "source_header": "FL__ex340_em610",
+            "analysis_header": "FL__ex340_em610"
+          },
+          {
+            "position": 7,
+            "source_header": "FL__ex340_em670",
+            "analysis_header": "FL__ex340_em670"
+          },
+          {
+            "position": 8,
+            "source_header": "FL__ex340_em730",
+            "analysis_header": "FL__ex340_em730"
+          },
+          {
+            "position": 9,
+            "source_header": "FL__ex340_em790",
+            "analysis_header": "FL__ex340_em790"
+          },
+          {
+            "position": 10,
+            "source_header": "FL__ex380_em490",
+            "analysis_header": "FL__ex380_em490"
+          },
+          {
+            "position": 11,
+            "source_header": "FL__ex380_em550",
+            "analysis_header": "FL__ex380_em550"
+          },
+          {
+            "position": 12,
+            "source_header": "FL__ex380_em610",
+            "analysis_header": "FL__ex380_em610"
+          },
+          {
+            "position": 13,
+            "source_header": "FL__ex380_em670",
+            "analysis_header": "FL__ex380_em670"
+          },
+          {
+            "position": 14,
+            "source_header": "FL__ex380_em730",
+            "analysis_header": "FL__ex380_em730"
+          },
+          {
+            "position": 15,
+            "source_header": "FL__ex380_em790",
+            "analysis_header": "FL__ex380_em790"
+          },
+          {
+            "position": 16,
+            "source_header": "FL__ex420_em490",
+            "analysis_header": "FL__ex420_em490"
+          },
+          {
+            "position": 17,
+            "source_header": "FL__ex420_em550",
+            "analysis_header": "FL__ex420_em550"
+          },
+          {
+            "position": 18,
+            "source_header": "FL__ex420_em610",
+            "analysis_header": "FL__ex420_em610"
+          },
+          {
+            "position": 19,
+            "source_header": "FL__ex420_em670",
+            "analysis_header": "FL__ex420_em670"
+          },
+          {
+            "position": 20,
+            "source_header": "FL__ex420_em730",
+            "analysis_header": "FL__ex420_em730"
+          },
+          {
+            "position": 21,
+            "source_header": "FL__ex420_em790",
+            "analysis_header": "FL__ex420_em790"
+          },
+          {
+            "position": 22,
+            "source_header": "FL__ex460_em490",
+            "analysis_header": "FL__ex460_em490"
+          },
+          {
+            "position": 23,
+            "source_header": "FL__ex460_em550",
+            "analysis_header": "FL__ex460_em550"
+          },
+          {
+            "position": 24,
+            "source_header": "FL__ex460_em610",
+            "analysis_header": "FL__ex460_em610"
+          },
+          {
+            "position": 25,
+            "source_header": "FL__ex460_em670",
+            "analysis_header": "FL__ex460_em670"
+          },
+          {
+            "position": 26,
+            "source_header": "FL__ex460_em730",
+            "analysis_header": "FL__ex460_em730"
+          },
+          {
+            "position": 27,
+            "source_header": "FL__ex460_em790",
+            "analysis_header": "FL__ex460_em790"
+          },
+          {
+            "position": 28,
+            "source_header": "FL__ex500_em550",
+            "analysis_header": "FL__ex500_em550"
+          },
+          {
+            "position": 29,
+            "source_header": "FL__ex500_em610",
+            "analysis_header": "FL__ex500_em610"
+          },
+          {
+            "position": 30,
+            "source_header": "FL__ex500_em670",
+            "analysis_header": "FL__ex500_em670"
+          },
+          {
+            "position": 31,
+            "source_header": "FL__ex500_em730",
+            "analysis_header": "FL__ex500_em730"
+          },
+          {
+            "position": 32,
+            "source_header": "FL__ex500_em790",
+            "analysis_header": "FL__ex500_em790"
+          },
+          {
+            "position": 33,
+            "source_header": "FL__ex540_em550",
+            "analysis_header": "FL__ex540_em550"
+          },
+          {
+            "position": 34,
+            "source_header": "FL__ex540_em610",
+            "analysis_header": "FL__ex540_em610"
+          },
+          {
+            "position": 35,
+            "source_header": "FL__ex540_em670",
+            "analysis_header": "FL__ex540_em670"
+          },
+          {
+            "position": 36,
+            "source_header": "FL__ex540_em730",
+            "analysis_header": "FL__ex540_em730"
+          },
+          {
+            "position": 37,
+            "source_header": "FL__ex540_em790",
+            "analysis_header": "FL__ex540_em790"
+          },
+          {
+            "position": 38,
+            "source_header": "FL__ex580_em610",
+            "analysis_header": "FL__ex580_em610"
+          },
+          {
+            "position": 39,
+            "source_header": "FL__ex580_em670",
+            "analysis_header": "FL__ex580_em670"
+          },
+          {
+            "position": 40,
+            "source_header": "FL__ex580_em730",
+            "analysis_header": "FL__ex580_em730"
+          },
+          {
+            "position": 41,
+            "source_header": "FL__ex580_em790",
+            "analysis_header": "FL__ex580_em790"
+          },
+          {
+            "position": 42,
+            "source_header": "FL__ex620_em670",
+            "analysis_header": "FL__ex620_em670"
+          },
+          {
+            "position": 43,
+            "source_header": "FL__ex620_em730",
+            "analysis_header": "FL__ex620_em730"
+          },
+          {
+            "position": 44,
+            "source_header": "FL__ex620_em790",
+            "analysis_header": "FL__ex620_em790"
+          },
+          {
+            "position": 45,
+            "source_header": "UV__K232",
+            "analysis_header": "UV__K232"
+          },
+          {
+            "position": 46,
+            "source_header": "UV__K264",
+            "analysis_header": "UV__K264"
+          },
+          {
+            "position": 47,
+            "source_header": "UV__K268",
+            "analysis_header": "UV__K268"
+          },
+          {
+            "position": 48,
+            "source_header": "UV__K272",
+            "analysis_header": "UV__K272"
+          }
+        ],
+        "max_cells": 2000000,
+        "max_bytes": 52428800
+      },
+      "original_parsed_input_sha256": "2aba49c16a51f351fe24e36e80ddfb5a96bff8506b51ce46f165d9951a571019"
+    },
+    "feature_correlation_schema": {
+      "row_name_column": "feature",
+      "measurement_columns": [
+        "FL__ex340_em490",
+        "FL__ex340_em550",
+        "FL__ex340_em610",
+        "FL__ex340_em670",
+        "FL__ex340_em730",
+        "FL__ex340_em790",
+        "FL__ex380_em490",
+        "FL__ex380_em550",
+        "FL__ex380_em610",
+        "FL__ex380_em670",
+        "FL__ex380_em730",
+        "FL__ex380_em790"
+      ],
+      "source_names_preserved": true
+    },
+    "diagnostics": [
+      {
+        "table": "feature_quality",
+        "question": "Which measurement columns are incomplete or constant?",
+        "interpretation": "Input-only descriptive audit; no feature is selected or removed using these summaries.",
+        "rows": 45
+      },
+      {
+        "table": "feature_correlation_preview",
+        "question": "Are measurement features redundant?",
+        "interpretation": "Pearson correlations of available row pairs, first 12 selected columns in input order; repeated rows are not independent evidence.",
+        "rows": 12
+      },
+      {
+        "table": "group_diagnostics",
+        "question": "Which physical groups have the largest errors?",
+        "interpretation": "One summary per method and physical group; group means and within-group RMSE are different quantities. No rows are excluded.",
+        "rows": 168
+      },
+      {
+        "table": "reference_range_diagnostics",
+        "question": "Does error vary across the measured response range?",
+        "interpretation": "Up to four shared reference-quantile bins, determined after prediction for diagnosis only. Bin counts and group counts are retained; no uncertainty is inferred.",
+        "rows": 28
+      },
+      {
+        "table": "paired_baseline_comparison",
+        "question": "Does each method improve on its baseline using exactly the same observations?",
+        "interpretation": "Descriptive paired comparisons; each method may have a different intersection. Differences do not supply independent confidence intervals or a global ranking.",
+        "rows": 6
+      }
+    ],
+    "capabilities": [
+      {
+        "capability": "input_quality",
+        "available": true,
+        "level": "descriptive",
+        "reason": "Parsed rows and selected field availability are retained."
+      },
+      {
+        "capability": "paired_descriptions",
+        "available": true,
+        "level": "descriptive",
+        "reason": "Available finite reference/comparison pairs; no missing reference is invented."
+      },
+      {
+        "capability": "fitted_model",
+        "available": false,
+        "level": "fitting",
+        "reason": "No estimable requested factor model was fitted."
+      },
+      {
+        "capability": "held_out_evaluation",
+        "available": true,
+        "level": "evaluation",
+        "reason": "Recorded disjoint training/held-out units; interpret small samples as exploratory."
+      },
+      {
+        "capability": "conditional_uncertainty",
+        "available": false,
+        "level": "inference",
+        "reason": "Required independence, variance, sample structure or prediction provenance is unavailable."
+      }
+    ],
+    "evidence_summary": "Exploratory results; selected uncertainty measures unavailable",
+    "import_options": {},
+    "export_config": {
+      "target": "target",
+      "id_col": "sample_id",
+      "group_col": "group",
+      "block_columns": {
+        "FL": [
+          "FL__ex340_em490",
+          "FL__ex340_em550",
+          "FL__ex340_em610",
+          "FL__ex340_em670",
+          "FL__ex340_em730",
+          "FL__ex340_em790",
+          "FL__ex380_em490",
+          "FL__ex380_em550",
+          "FL__ex380_em610",
+          "FL__ex380_em670",
+          "FL__ex380_em730",
+          "FL__ex380_em790",
+          "FL__ex420_em490",
+          "FL__ex420_em550",
+          "FL__ex420_em610",
+          "FL__ex420_em670",
+          "FL__ex420_em730",
+          "FL__ex420_em790",
+          "FL__ex460_em490",
+          "FL__ex460_em550",
+          "FL__ex460_em610",
+          "FL__ex460_em670",
+          "FL__ex460_em730",
+          "FL__ex460_em790",
+          "FL__ex500_em550",
+          "FL__ex500_em610",
+          "FL__ex500_em670",
+          "FL__ex500_em730",
+          "FL__ex500_em790",
+          "FL__ex540_em550",
+          "FL__ex540_em610",
+          "FL__ex540_em670",
+          "FL__ex540_em730",
+          "FL__ex540_em790",
+          "FL__ex580_em610",
+          "FL__ex580_em670",
+          "FL__ex580_em730",
+          "FL__ex580_em790",
+          "FL__ex620_em670",
+          "FL__ex620_em730",
+          "FL__ex620_em790"
+        ],
+        "UV": [
+          "UV__K232",
+          "UV__K264",
+          "UV__K268",
+          "UV__K272"
+        ]
+      },
+      "cv_group_col": null,
+      "column_metadata": {
+        "target": {
+          "label": "Accelerated ageing duration at 60 C",
+          "unit": "days"
+        }
+      },
+      "input_name": "olive_fusion.csv",
+      "provenance": {
+        "kind": "bundled_example",
+        "example": "olive_fusion.csv"
+      },
+      "import_options": {}
+    }
+  },
+  "notes": [
+    "All transformations and component choices are fitted within training folds. Stack weights use additional out-of-fold training predictions.",
+    "Errors have response units; signed residual = prediction minus reference. Group RMSE gives each physical group equal weight.",
+    "Compare methods on common_scored_rows; all_available_rows also reports prediction coverage. A displayed best score is descriptive, not an independently validated winner.",
+    "Blank cells use training medians. Single-block models abstain on wholly absent blocks; late fusion renormalizes available weights. Early fusion imputes absent blocks and can be less reliable."
+  ],
+  "environment": {
+    "python": "3.14.7",
+    "platform": "Windows",
+    "architecture": "AMD64",
+    "numpy": "2.5.3",
+    "pandas": "2.3.3",
+    "scipy": "1.18.1",
+    "scikit-learn": "1.9.0",
+    "matplotlib": "3.11.1",
+    "streamlit": "1.63.0"
+  },
+  "created_utc": "2026-09-08T14:30:59.979002+00:00",
+  "export_profile": {
+    "figure_formats": [
+      "png",
+      "pdf",
+      "svg"
+    ],
+    "png_dpi": 300
+  },
+  "tables": {
+    "input_audit": 48,
+    "predictions": 1680,
+    "scores": 14,
+    "fitted_choices": 10,
+    "splits": 1200,
+    "feature_quality": 45,
+    "feature_correlation_preview": 12,
+    "group_diagnostics": 168,
+    "reference_range_diagnostics": 28,
+    "paired_baseline_comparison": 6,
+    "capabilities": 5
+  },
+  "application": "sensefusion",
+  "software_version": "0.5.2",
+  "configuration_schema_version": "1.2",
+  "computation_status": "completed",
+  "export_status": "completed",
+  "evidence_status": "Exploratory results; selected uncertainty measures unavailable"
+}
