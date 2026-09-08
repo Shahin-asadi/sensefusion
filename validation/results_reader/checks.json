@@ -1,0 +1,63 @@
+{
+  "project": "sensefusion",
+  "python": "3.14.7 (tags/v3.14.7:823f032, Aug  5 2026, 10:51:32) [MSC v.1944 64 bit (AMD64)]",
+  "checks": [
+    {
+      "check": "lint",
+      "returncode": 0,
+      "status": "PASS"
+    },
+    {
+      "check": "format",
+      "returncode": 0,
+      "status": "PASS"
+    },
+    {
+      "check": "tests",
+      "returncode": 0,
+      "status": "PASS"
+    }
+  ],
+  "snapshot_unchanged": true,
+  "source_test_hashes": {
+    "src/sensefusion/capabilities.py": "5b3ef6ea4ed96b17b080de3418497f4ee71b0853b6005a953b08ee47efec5f15",
+    "src/sensefusion/cli.py": "40234cd387d22b3b5555294f5070323e51ada6c606e48122268e195fc981bf2e",
+    "src/sensefusion/common.py": "c6bdf4d75ea68ae5f5c6e472f3845515d6da9d4d16757ba6ebfee16b568a58be",
+    "src/sensefusion/contract.py": "3c31e62913e2ef7460270bed8af9c2cfa7c558896115c80828e1d0b22b3a8145",
+    "src/sensefusion/core.py": "2dd7cb9aa2a22246adc4d2c080e1661033500ce516928ae96694808177ec279b",
+    "src/sensefusion/diagnostics.py": "8b14c0ba923d1f28821494e2b2e392a85e517d41766bf9b7c2267d3997a4246f",
+    "src/sensefusion/importing.py": "c372f0959e33bbf8803f8ade5313e5b069106711e4f8d13378d60671d5e57f3f",
+    "src/sensefusion/presentation.py": "597589219782ce7858a4c3c1f972f15271b602937b86f329d0ec09f727955425",
+    "src/sensefusion/reporting.py": "305f87d27f1d4f23b414cf2de5790e6db853e099c11f787d25ded69f42f4f97c",
+    "src/sensefusion/result_reader.py": "e910f8979ba2ae3f193987a139c9f2a4496facfc8d4a7583f80cbb9ba28ea126",
+    "src/sensefusion/templates.py": "7d975154d051ce05fb1a62aa5495b114d8117d8755bbf83ad5b1fa63e2d0c4d3",
+    "src/sensefusion/ui.py": "57c4e4438968e7ec6c37b82e3af375b16a7fdd24b144e7e5fdcaba4559a2e754",
+    "src/sensefusion/visuals.py": "c09f8f6977365ff316c4d0da24e5d21b32799976afd08324d9dbb06db015ec27",
+    "src/sensefusion/web_entry.py": "7aae7838e332a05b3a7ab551d1549698749f936c7938feb8f113d20891c8d22b",
+    "src/sensefusion/workbench.py": "406fbbb1aef407664aec2af0a06773bb9703d87e6750030f4b110af33a6272f4",
+    "src/sensefusion/workbook.py": "47d8bfd124f5fa253ad1fa53d25fdb6acbf1575dc97ff101d4d8656008967919",
+    "src/sensefusion/__init__.py": "eada4b4a521ad5dcb81318e6336b88b582ba269752d527eaba0e15cb7d804936",
+    "src/sensefusion/__main__.py": "482b8693e2fe6dbd732e3d7961e03827d3efa187bad11d29da188be580ebbeea",
+    "tests/test_analysis.py": "f7b466456f958f0d9c91b991e796bd248b4b6bb7583f27300a369cbce438d452",
+    "tests/test_closeout.py": "44ac9cffc22dd66739795aea534bbd2ab782120f870cdd111298f97dc6532965",
+    "tests/test_common.py": "9cb58188d0c24e3797c5c957da251d91a0af905cc87befc6ebd9bc6ba1d3798f",
+    "tests/test_diagnostics.py": "99a335a39d0d008472965566b33c48b0b87fc67e99c62387f82fe02f22541857",
+    "tests/test_hosting.py": "8fd4d9039653faec5901c9a664b943ce2cc2a19b36ad7eac486ea5d86612124f",
+    "tests/test_remediation.py": "90c2b8b1f118a904031b9c48dfffbfc1c54f59f1449e603cdd906067a5507e95",
+    "tests/test_result_reader.py": "67abb52afdd3701d45d2fb85b08ed755e72b963fdfe1aef26cfd901aad57e9f4",
+    "tests/test_scope_and_exports.py": "69d97ba0b4a9c5a0c039e59ec1fbe52f8d97cd71dddadb3e1a98b4023c4f5afd",
+    "tests/test_ui.py": "7d667ed5d7938893ed319784c88040e6fd557fbac5e3fc184444a800e8340e63",
+    "tests/test_v051.py": "e733abed5f02bb5e4d05bebde65fc09bc369b8b1b56251f90202ee387e849b75"
+  },
+  "junit_privacy_note": "Machine hostname removed; test cases and outcomes unchanged.",
+  "environment": {
+    "numpy": "2.5.3",
+    "pandas": "2.3.3",
+    "scipy": "1.18.1",
+    "scikit-learn": "1.9.0",
+    "streamlit": "1.63.0",
+    "matplotlib": "3.11.1",
+    "reportlab": "4.5.1",
+    "pytest": "9.1.1"
+  }
+}
